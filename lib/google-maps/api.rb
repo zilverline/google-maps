@@ -3,8 +3,6 @@ require 'uri'
 require 'json'
 require 'hashie/mash'
 
-require 'pp'
-
 module Google
   module Maps
     
@@ -13,7 +11,6 @@ module Google
     class API
       
       STATUS_OK = "OK"
-      OVER_QUERY_LIMIT = "OVER_QUERY_LIMIT"
       
       class << self
         def query(args = {})
@@ -27,7 +24,6 @@ module Google
         
         def response(url)
           response = Net::HTTP.get_response(url)
-          # pp response.kind_of?(Net::HTTPSuccess)
           response.error! unless response.kind_of?(Net::HTTPSuccess)
           JSON.parse(response.body)
         rescue Net::HTTPServerException => error
