@@ -1,0 +1,34 @@
+Google Maps
+====================
+
+Installation
+------------
+	gem install google-maps
+
+Usage Examples
+--------------
+	Google::Maps.distance("Science Park, Amsterdam", "Deventer")
+	 #=> "104 km"
+	Google::Maps.duration("Science Park, Amsterdam", "Deventer")
+	 #=> "1 hour 12 mins"
+  
+	route = Google::Maps.route("Science Park, Amsterdam", "Deventer")
+	route.distance.text
+	 #=> "104 km"
+	route.duration.text
+	 #=> "1 hour 12 mins"
+	route.distance.value
+	 #=> 103712
+	route.duration.value
+	 #=> 4337
+
+Testing
+-------
+Run all tests:
+
+	rspec spec/
+
+Copyright
+---------
+Copyright (c) 2011 Zilverline / Daniël van Hoesel.
+See [LICENSE](https://github.com/zilverline/google-maps/blob/master/LICENSE.mkd) for details.
