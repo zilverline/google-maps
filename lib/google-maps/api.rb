@@ -1,4 +1,5 @@
-require 'net/http'
+# require 'net/http'
+require 'httpclient'
 require 'uri'
 require 'json'
 require 'hashie/mash'
@@ -13,9 +14,9 @@ module Google
       STATUS_OK = "OK"
       
       class << self
-        def query(args = {})
+        def query(service, args = {})
           args[:sensor] = false
-          result = Hashie::Mash.new response(url(args))
+          result = Hashie::Mash.new response(url(service, args))
           raise InvalidResponseException.new("Google returned an error status: #{result.status}") if result.status != STATUS_OK
           result
         end
@@ -23,17 +24,13 @@ module Google
         private
         
         def response(url)
-          response = Net::HTTP.get_response(url)
-          response.error! unless response.kind_of?(Net::HTTPSuccess)
-          JSON.parse(response.body)
-        rescue Net::HTTPServerException => error
-          raise InvalidResponseException.new(error.message)
+          JSON.parse(HTTPClient.new.get_content(url))
         rescue Exception => error
           raise InvalidResponseException.new("unknown error: #{error.message}")
         end
         
-        def url(args = {})
-          URI.parse("#{Google::Maps.end_point}#{query_string(args)}")
+        def url(service, args = {})
+          URI.parse("#{Google::Maps.end_point}#{Google::Maps.send(service)}/#{Google::Maps.format}#{query_string(args)}")
         end
         
         def query_string(args = {})

@@ -13,15 +13,24 @@ RSpec.configure do |config|
   config.run_all_when_everything_filtered = true
   
   config.before(:each) do
-    # catch all non-mocked requests
-    Net::HTTP.expects(:get_response).never
+    Google::Maps.api_key = "AIzaSyA78g2xRIMcQ8FRkeMJNOQPraZVi7dcfuE"
+    
+    # catch all unmocked requests
+    HTTPClient.any_instance.expects(:get_content).never
+  end
+  
+  config.after(:each) do
+    # reset mock
+    HTTPClient.any_instance.unstub(:get_content)
+    
+    # reset configuration
+    Google::Maps.reset
   end
 end
 
 def stub_response(fixture)
   fixture_path = File.expand_path("../fixtures/#{fixture}", __FILE__)
-  response = stub(:kind_of? => Net::HTTPSuccess, :body => File.open(fixture_path, "rb").read)
-  Net::HTTP.stubs(:get_response).returns(response)
+  HTTPClient.any_instance.expects(:get_content).returns(File.open(fixture_path, "rb").read)
 end
 
 load File.expand_path('../../lib/google-maps.rb', __FILE__)

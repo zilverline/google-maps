@@ -2,7 +2,7 @@ require File.expand_path('../../spec_helper', __FILE__)
 
 describe Google::Maps::API do
   it "should raise a custom exception when the query fails by net" do
-    Net::HTTP.unstub(:get_response)
+    HTTPClient.any_instance.unstub(:get_content)
     
     Google::Maps.end_point = "http://unknown.tld/"
     lambda{ Google::Maps.distance("Amsterdam", "Deventer") }.should raise_error(Google::Maps::InvalidResponseException)
