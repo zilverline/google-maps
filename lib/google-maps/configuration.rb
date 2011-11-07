@@ -3,10 +3,13 @@ module Google
     # Defines constants and methods related to configuration
     module Configuration
       # An array of valid keys in the options hash when configuring an {Google::Maps::API}
-      VALID_OPTIONS_KEYS = [:end_point].freeze
+      VALID_OPTIONS_KEYS = [:end_point, :api_key].freeze
 
       # By default, set "http://maps.googleapis.com/maps/api/json/" as the server
       DEFAULT_END_POINT = "http://maps.googleapis.com/maps/api/directions/json".freeze
+      
+      # API key to connect to Google
+      DEFAULT_API_KEY = nil
       
       # @private
       attr_accessor *VALID_OPTIONS_KEYS
@@ -31,6 +34,7 @@ module Google
       # Reset all configuration options to defaults
       def reset
         self.end_point = DEFAULT_END_POINT
+        self.api_key = DEFAULT_API_KEY
         self
       end
     end

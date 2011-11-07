@@ -1,26 +1,43 @@
 require File.expand_path('../spec_helper', __FILE__)
 
 describe Google::Maps do
-  before(:each) do
-    stub_response("amsterdam-deventer-en.json")
+  
+  describe "Directions" do
+    before(:each) do
+      stub_response("amsterdam-deventer-en.json")
+    end
+  
+    it "should be able to calculate a route" do
+      route = Google::Maps.route("Science Park, Amsterdam", "Deventer")
+      route.class.should == Google::Maps::Route
+      route.distance.text.should == "104 km"
+      route.duration.text.should == "1 hour 12 mins"
+      route.distance.value.should == 103712
+      route.duration.value.should == 4337
+    end
+
+    it "should be able to calculate the distance" do
+      Google::Maps.distance("Science Park, Amsterdam", "Deventer").should == "104 km"
+    end
+
+    it "should be able to calculate the duration" do
+      Google::Maps.duration("Science Park, Amsterdam", "Deventer").should == "1 hour 12 mins"
+    end
   end
   
-  it "should be able to calculate a route" do
-    route = Google::Maps.route("Science Park, Amsterdam", "Deventer")
-    route.class.should == Google::Maps::Route
-    route.distance.text.should == "104 km"
-    route.duration.text.should == "1 hour 12 mins"
-    route.distance.value.should == 103712
-    route.duration.value.should == 4337
+  describe "Places" do  
+    before(:each) do
+      stub_response("deventer-en.json")
+    end
+    
+    it "should find a list of places for a keyword" do
+      place = Google::Maps.places("Deventer").first
+      place.class.should == Google::Maps::Place
+      place.text.should == "Deventer, The Netherlands"
+      place.html.should == "<strong>Deventer</strong>, The Netherlands"
+    end
   end
-
-  it "should be able to calculate the distance" do
-    Google::Maps.distance("Science Park, Amsterdam", "Deventer").should == "104 km"
-  end
-
-  it "should be able to calculate the duration" do
-    Google::Maps.duration("Science Park, Amsterdam", "Deventer").should == "1 hour 12 mins"
-  end
+  
   describe ".end_point=" do
     it "should set the end_point" do
       Google::Maps.end_point = "http://maps.google.com/"

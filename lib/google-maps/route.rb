@@ -29,7 +29,7 @@ module Google
       private
       def route
         # default to the first returned route (the most efficient one)
-        @response ||= API.query(:origin => from, :destination => to, :language => language).first
+        @response ||= API.query(:origin => from, :destination => to, :language => language).routes.first
       end
     end
     

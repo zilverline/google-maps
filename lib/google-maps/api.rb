@@ -17,7 +17,7 @@ module Google
           args[:sensor] = false
           result = Hashie::Mash.new response(url(args))
           raise InvalidResponseException.new("Google returned an error status: #{result.status}") if result.status != STATUS_OK
-          result.routes
+          result
         end
       
         private
