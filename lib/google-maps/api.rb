@@ -42,7 +42,7 @@ module Google
         def premier_signing(url)
           raise InvalidPremierConfigurationException.new("No private key set, set Google::Maps.premier_key") if Google::Maps.premier_key.nil?
           
-          parsed_url = URI.parse(url)
+          parsed_url = url.is_a?(URI) ? url : URI.parse(url)
           url_to_sign = parsed_url.path + '?' + parsed_url.query
 
           # Decode the private key

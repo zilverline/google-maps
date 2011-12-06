@@ -43,6 +43,12 @@ describe Google::Maps::API do
       signed_url = Google::Maps::API.send(:premier_signing, url)
       signed_url.should == "#{url}&signature=KrU1TzVQM7Ur0i8i7K3huiw3MsA="
     end
+    
+    it "should allow a parsed URI object to be used for signing" do
+      url = URI.parse("http://maps.google.com/maps/api/geocode/json?address=New+York&sensor=false&client=clientID")
+      signed_url = Google::Maps::API.send(:premier_signing, url)
+      signed_url.should == "#{url}&signature=KrU1TzVQM7Ur0i8i7K3huiw3MsA="
+    end
   end
 
 end
