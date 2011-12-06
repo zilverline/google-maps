@@ -14,7 +14,7 @@ module Google
       end
       
       def self.find(keyword, language=:en)
-        API.query(:places_service, :language => language, :input => keyword, :key => Google::Maps.api_key).predictions.map{|prediction| Place.new(prediction, keyword) }
+        API.query(:places_service, :language => language, :input => keyword).predictions.map{|prediction| Place.new(prediction, keyword) }
       end
     end
     

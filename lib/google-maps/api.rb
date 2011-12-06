@@ -3,11 +3,15 @@ require 'httpclient'
 require 'uri'
 require 'json'
 require 'hashie/mash'
+require 'base64'
+require 'hmac'
+require 'hmac-sha1'
 
 module Google
   module Maps
     
     class InvalidResponseException < Exception; end
+    class InvalidPremierConfigurationException < Exception; end
         
     class API
       
@@ -16,12 +20,45 @@ module Google
       class << self
         def query(service, args = {})
           args[:sensor] = false
-          result = Hashie::Mash.new response(url(service, args))
+          args[:client] = Google::Maps.premier_client_id unless Google::Maps.premier_client_id.nil?
+          
+          url = url(service, args)
+          url = premier_signing(url) unless Google::Maps.premier_client_id.nil?
+          result = Hashie::Mash.new response(url)
           raise InvalidResponseException.new("Google returned an error status: #{result.status}") if result.status != STATUS_OK
           result
         end
       
         private
+        
+        def decode_url_safe_base_64(value)
+          Base64.decode64(value.tr('-_','+/'))
+        end
+
+        def encode_url_safe_base_64(value)
+          Base64.encode64(value).tr('+/','-_')
+        end
+
+        def premier_signing(url)
+          raise InvalidPremierConfigurationException.new("No private key set, set Google::Maps.premier_key") if Google::Maps.premier_key.nil?
+          
+          parsed_url = URI.parse(url)
+          url_to_sign = parsed_url.path + '?' + parsed_url.query
+
+          # Decode the private key
+          raw_key = decode_url_safe_base_64(Google::Maps.premier_key)
+
+          # create a signature using the private key and the URL
+          sha1 = HMAC::SHA1.new(raw_key)
+          sha1 << url_to_sign
+          raw_sig = sha1.digest
+
+          # encode the signature into base64 for url use form.
+          signature =  encode_url_safe_base_64(raw_sig)
+
+          # prepend the server and append the signature.
+          "#{parsed_url.scheme}://#{parsed_url.host}#{url_to_sign}&signature=#{signature}".strip
+        end
         
         def response(url)
           JSON.parse(HTTPClient.new.get_content(url))

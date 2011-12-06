@@ -27,5 +27,5 @@ Gem::Specification.new do |s|
   s.add_dependency('json', '~> 1.6.1')
   s.add_dependency('hashie', '~> 1.1.0')
   s.add_dependency('httpclient', '~> 2.2.3')
-  
+  s.add_dependency('ruby-hmac', '~> 0.4.0')
 end
