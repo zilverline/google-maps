@@ -63,6 +63,7 @@ module Google
         def response(url)
           JSON.parse(HTTPClient.new.get_content(url))
         rescue Exception => error
+          Google::Maps.logger.error "#{error.message}"
           raise InvalidResponseException.new("unknown error: #{error.message}")
         end
         

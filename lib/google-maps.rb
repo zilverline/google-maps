@@ -1,10 +1,12 @@
 require File.expand_path('../google-maps/configuration', __FILE__)
+require File.expand_path('../google-maps/logger', __FILE__)
 require File.expand_path('../google-maps/route', __FILE__)
 require File.expand_path('../google-maps/place', __FILE__)
 
 module Google
   module Maps
     extend Configuration
+    extend Logger
     
     def self.route(from, to)
       Route.new(from, to)
