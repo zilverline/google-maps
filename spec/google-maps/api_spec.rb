@@ -10,14 +10,18 @@ describe Google::Maps::API do
     lambda{ Google::Maps.distance("Amsterdam", "Deventer") }.should raise_error(Google::Maps::InvalidResponseException)
     Google::Maps.end_point = "http://www.google.com/404"
     lambda{ Google::Maps.distance("Amsterdam", "Deventer") }.should raise_error(Google::Maps::InvalidResponseException)
-
   end
-  
+
   it "should raise a custom exception when the query fails by Google" do
     stub_response("over_query_limit.json")
     lambda{ Google::Maps.distance("Amsterdam", "Deventer") }.should raise_error(Google::Maps::InvalidResponseException)    
   end
-  
+
+  it "should raise a custom exception when there are no results" do
+    stub_response("zero-results.json")
+    lambda{ Google::Maps.distance("Blah blah", "Jalala") }.should raise_error(Google::Maps::ZeroResultsException)
+  end
+
   describe "premier usage" do
     before :each do 
       Google::Maps.configure do |config|

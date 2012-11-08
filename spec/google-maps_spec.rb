@@ -68,6 +68,12 @@ describe Google::Maps do
       location = Google::Maps.geocode("Science Park 400, Amsterdam", :nl).first
       location.address.should == "Science Park 400, Amsterdam, 1098 XH Amsterdam, Nederland"
     end
+
+    it "should return an empty array when an address could not be geocoded" do
+      stub_response("zero-results.json")
+
+      Google::Maps.geocode("Amsterdam").should == []
+    end
   end
   
   describe ".end_point=" do

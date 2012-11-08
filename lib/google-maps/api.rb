@@ -12,11 +12,13 @@ module Google
     
     class InvalidResponseException < Exception; end
     class InvalidPremierConfigurationException < Exception; end
+    class ZeroResultsException < InvalidResponseException; end
         
     class API
       
-      STATUS_OK = "OK"
-      
+      STATUS_OK = "OK".freeze
+      STATUS_ZERO_RESULTS = "ZERO_RESULTS".freeze
+
       class << self
         def query(service, args = {})
           args[:sensor] = false
@@ -25,6 +27,7 @@ module Google
           url = url(service, args)
           url = premier_signing(url) unless Google::Maps.premier_client_id.nil?
           result = Hashie::Mash.new response(url)
+          raise ZeroResultsException.new("Google did not return any results: #{result.status}") if result.status == STATUS_ZERO_RESULTS
           raise InvalidResponseException.new("Google returned an error status: #{result.status}") if result.status != STATUS_OK
           result
         end

@@ -27,6 +27,8 @@ module Google
 
     def self.geocode(address, language = :en)
       Location.find(address, language)
+    rescue ZeroResultsException
+      []
     end
   end
 end
