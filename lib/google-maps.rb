@@ -2,6 +2,7 @@ require File.expand_path('../google-maps/configuration', __FILE__)
 require File.expand_path('../google-maps/logger', __FILE__)
 require File.expand_path('../google-maps/route', __FILE__)
 require File.expand_path('../google-maps/place', __FILE__)
+require File.expand_path('../google-maps/location', __FILE__)
 
 module Google
   module Maps
@@ -22,6 +23,10 @@ module Google
     
     def self.places(keyword)
       Place.find(keyword)
+    end
+
+    def self.geocode(address, language = :en)
+      Location.find(address, language)
     end
   end
 end

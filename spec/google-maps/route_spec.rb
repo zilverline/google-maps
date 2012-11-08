@@ -18,8 +18,6 @@ describe Google::Maps::Route do
       @route.language.should == :nl
       @route.end_address.should == "Deventer, Nederland"
     end
-  
-
 
     it "should be able to return the address for the origin" do
       @route.start_address.should == "Science Park, 1098 Amsterdam, Nederland"

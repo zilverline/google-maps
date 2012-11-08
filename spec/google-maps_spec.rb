@@ -37,6 +37,38 @@ describe Google::Maps do
       place.html.should == "<strong>Deventer</strong>, The Netherlands"
     end
   end
+
+  describe "Geocoder" do
+    it "should lookup a latlong for an address" do
+      stub_response("geocoder/science-park-400-amsterdam-en.json")
+
+      location = Google::Maps.geocode("Science Park 400, Amsterdam").first
+      location.class.should == Google::Maps::Location
+      location.address.should == "Science Park Amsterdam 400, University of Amsterdam, 1098 XH Amsterdam, The Netherlands"
+      location.latitude.should == 52.3564490
+      location.longitude.should == 4.95568890
+
+      location.lat_lng.should == [52.3564490, 4.95568890]
+    end
+
+    it "should handle multiple location for an address" do
+      stub_response("geocoder/amsterdam-en.json")
+
+      locations = Google::Maps.geocode("Amsterdam")
+      locations.should have(2).items
+      location = locations.last
+      location.address.should == "Amsterdam, NY, USA"
+      location.latitude.should == 42.93868560
+      location.longitude.should == -74.18818580
+    end
+
+    it "should accept languages other than en" do
+      stub_response("geocoder/science-park-400-amsterdam-nl.json")
+
+      location = Google::Maps.geocode("Science Park 400, Amsterdam", :nl).first
+      location.address.should == "Science Park 400, Amsterdam, 1098 XH Amsterdam, Nederland"
+    end
+  end
   
   describe ".end_point=" do
     it "should set the end_point" do

@@ -1,0 +1,111 @@
+{
+  "results" : [
+    {
+      "address_components" : [
+        {
+          "long_name" : "Amsterdam",
+          "short_name" : "Amsterdam",
+          "types" : [ "locality", "political" ]
+        },
+        {
+          "long_name" : "Government of Amsterdam",
+          "short_name" : "Government of Amsterdam",
+          "types" : [ "administrative_area_level_2", "political" ]
+        },
+        {
+          "long_name" : "Noord-Holland",
+          "short_name" : "NH",
+          "types" : [ "administrative_area_level_1", "political" ]
+        },
+        {
+          "long_name" : "The Netherlands",
+          "short_name" : "NL",
+          "types" : [ "country", "political" ]
+        }
+      ],
+      "formatted_address" : "Amsterdam, The Netherlands",
+      "geometry" : {
+        "bounds" : {
+          "northeast" : {
+            "lat" : 52.43094970,
+            "lng" : 5.06839030
+          },
+          "southwest" : {
+            "lat" : 52.31827420,
+            "lng" : 4.72885580
+          }
+        },
+        "location" : {
+          "lat" : 52.37021570,
+          "lng" : 4.895167900000001
+        },
+        "location_type" : "APPROXIMATE",
+        "viewport" : {
+          "northeast" : {
+            "lat" : 52.43094970,
+            "lng" : 5.06839030
+          },
+          "southwest" : {
+            "lat" : 52.31827420,
+            "lng" : 4.72885580
+          }
+        }
+      },
+      "types" : [ "locality", "political" ]
+    },
+    {
+      "address_components" : [
+        {
+          "long_name" : "Amsterdam",
+          "short_name" : "Amsterdam",
+          "types" : [ "locality", "political" ]
+        },
+        {
+          "long_name" : "Montgomery",
+          "short_name" : "Montgomery",
+          "types" : [ "administrative_area_level_2", "political" ]
+        },
+        {
+          "long_name" : "New York",
+          "short_name" : "NY",
+          "types" : [ "administrative_area_level_1", "political" ]
+        },
+        {
+          "long_name" : "United States",
+          "short_name" : "US",
+          "types" : [ "country", "political" ]
+        }
+      ],
+      "formatted_address" : "Amsterdam, NY, USA",
+      "geometry" : {
+        "bounds" : {
+          "northeast" : {
+            "lat" : 42.96630090,
+            "lng" : -74.16134180
+          },
+          "southwest" : {
+            "lat" : 42.9190270,
+            "lng" : -74.22211390000001
+          }
+        },
+        "location" : {
+          "lat" : 42.93868560,
+          "lng" : -74.18818580
+        },
+        "location_type" : "APPROXIMATE",
+        "viewport" : {
+          "northeast" : {
+            "lat" : 42.96630090,
+            "lng" : -74.16134180
+          },
+          "southwest" : {
+            "lat" : 42.9190270,
+            "lng" : -74.22211390000001
+          }
+        }
+      },
+      "types" : [ "locality", "political" ]
+    }
+  ],
+  "status" : "OK"
+}
