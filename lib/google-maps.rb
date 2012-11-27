@@ -9,23 +9,23 @@ module Google
     extend Configuration
     extend Logger
     
-    def self.route(from, to)
-      Route.new(from, to)
+    def self.route(from, to, language = self.default_language)
+      Route.new(from, to, language)
     end
     
-    def self.distance(from, to)
-      Route.new(from, to).distance.text
+    def self.distance(from, to, language = self.default_language)
+      Route.new(from, to, language).distance.text
     end
     
-    def self.duration(from, to)
-      Route.new(from, to).duration.text
+    def self.duration(from, to, language = self.default_language)
+      Route.new(from, to, language).duration.text
     end
     
-    def self.places(keyword)
-      Place.find(keyword)
+    def self.places(keyword, language = self.default_language)
+      Place.find(keyword, language)
     end
 
-    def self.geocode(address, language = :en)
+    def self.geocode(address, language = self.default_language)
       Location.find(address, language)
     rescue ZeroResultsException
       []
