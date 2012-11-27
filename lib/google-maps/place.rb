@@ -14,7 +14,10 @@ module Google
       end
       
       def self.find(keyword, language=:en)
-        API.query(:places_service, :language => language, :input => keyword).predictions.map{|prediction| Place.new(prediction, keyword) }
+        args = {:language => language, :input => keyword}
+        args.merge!(key: Google::Maps.api_key) unless Google::Maps.api_key.nil?
+
+        API.query(:places_service, args).predictions.map{|prediction| Place.new(prediction, keyword) }
       end
     end
     
