@@ -4,12 +4,13 @@ module Google
   module Maps
     
     class Place
-      attr_reader :text, :html, :keyword
+      attr_reader :text, :html, :keyword, :reference
       alias :to_s :text
       alias :to_html :html
       
       def initialize(data, keyword)
         @text = data.description
+        @reference = data.reference
         @html = data.description.gsub(/(#{keyword})/i, '<strong>\1</strong>')
       end
       
