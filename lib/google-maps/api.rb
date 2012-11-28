@@ -71,7 +71,9 @@ module Google
         end
         
         def url(service, args = {})
-          URI.parse("#{Google::Maps.end_point}#{Google::Maps.send(service)}/#{Google::Maps.format}#{query_string(args)}")
+          url = URI.parse("#{Google::Maps.end_point}#{Google::Maps.send(service)}/#{Google::Maps.format}#{query_string(args)}")
+          Google::Maps.logger.debug("url before possible signing: #{url}")
+          url
         end
         
         def query_string(args = {})
