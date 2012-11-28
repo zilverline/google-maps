@@ -26,7 +26,7 @@ module Google
     end
 
     def self.place(reference, language = self.default_language)
-      Place.details(reference, language)
+      PlaceDetails.find(reference, language)
     end
 
     def self.geocode(address, language = self.default_language)
