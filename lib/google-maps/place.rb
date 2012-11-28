@@ -35,7 +35,7 @@ module Google
       end
 
       def self.find(reference, language=:en)
-        args = {:language => language, :input => reference}
+        args = {:language => language, :reference => reference}
         args.merge!(key: Google::Maps.api_key) unless Google::Maps.api_key.nil?
 
         PlaceDetails.new(API.query(:place_details_service, args).result)
