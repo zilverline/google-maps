@@ -25,6 +25,10 @@ module Google
       Place.find(keyword, language)
     end
 
+    def self.place(reference, language = self.default_language)
+      Place.details(reference, language)
+    end
+
     def self.geocode(address, language = self.default_language)
       Location.find(address, language)
     rescue ZeroResultsException

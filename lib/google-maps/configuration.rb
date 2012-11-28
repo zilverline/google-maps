@@ -3,13 +3,14 @@ module Google
     # Defines constants and methods related to configuration
     module Configuration
       # An array of valid keys in the options hash when configuring an {Google::Maps::API}
-      VALID_OPTIONS_KEYS = [:end_point, :premier_key, :premier_client_id, :format, :directions_service, :places_service, :geocode_service, :api_key, :default_language].freeze
+      VALID_OPTIONS_KEYS = [:end_point, :premier_key, :premier_client_id, :format, :directions_service, :places_service, :geocode_service, :api_key, :default_language, :place_details_service].freeze
 
       # By default, set "https://maps.googleapis.com/maps/api/" as the server
       DEFAULT_END_POINT = "https://maps.googleapis.com/maps/api/".freeze
 
       DEFAULT_DIRECTIONS_SERVICE = "directions".freeze
       DEFAULT_PLACES_SERVICE = "place/autocomplete".freeze
+      DEFAULT_PLACE_DETAILS_SERVICE = "place/details".freeze
       DEFAULT_GEOCODE_SERVICE = "geocode".freeze
 
       DEFAULT_FORMAT = "json".freeze
@@ -52,6 +53,7 @@ module Google
         self.format = DEFAULT_FORMAT
         self.directions_service = DEFAULT_DIRECTIONS_SERVICE
         self.places_service = DEFAULT_PLACES_SERVICE
+        self.place_details_service = DEFAULT_PLACE_DETAILS_SERVICE
         self.geocode_service = DEFAULT_GEOCODE_SERVICE
         self.premier_client_id = DEFAULT_PREMIER_CLIENT_ID
         self.premier_key = DEFAULT_PREMIER_KEY
