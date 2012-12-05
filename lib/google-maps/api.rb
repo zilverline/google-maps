@@ -23,6 +23,7 @@ module Google
         def query(service, args = {})
           args[:sensor] = false
           args[:client] = Google::Maps.premier_client_id unless Google::Maps.premier_client_id.nil?
+          args = args.merge(Google::Maps.default_params[service]) unless Google::Maps.default_params[service].nil?
 
           url = url(service, args)
           url = premier_signing(url) unless Google::Maps.premier_client_id.nil?
