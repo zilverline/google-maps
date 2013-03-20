@@ -10,8 +10,8 @@ require 'hmac-sha1'
 module Google
   module Maps
     
-    class InvalidResponseException < Exception; end
-    class InvalidPremierConfigurationException < Exception; end
+    class InvalidResponseException < StandardError; end
+    class InvalidPremierConfigurationException < StandardError; end
     class ZeroResultsException < InvalidResponseException; end
         
     class API

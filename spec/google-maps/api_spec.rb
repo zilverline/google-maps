@@ -22,6 +22,18 @@ describe Google::Maps::API do
     lambda{ Google::Maps.distance("Blah blah", "Jalala") }.should raise_error(Google::Maps::ZeroResultsException)
   end
 
+  it "should raise a custom exception that is rescue-able" do
+    stub_response("zero-results.json")
+    begin
+      Google::Maps.distance("Blah blah", "Jalala")
+    rescue => error
+      @error = error
+    ensure
+      @error.should_not be_nil
+      @error.should be_a_kind_of StandardError
+    end
+  end
+
   describe "premier usage" do
     before :each do 
       Google::Maps.configure do |config|
