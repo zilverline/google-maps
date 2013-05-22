@@ -25,7 +25,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency('simplecov', '~> 0.5')
   s.add_development_dependency('yard', '~> 0.7')
   s.add_dependency('json', '~> 1.7.5')
-  s.add_dependency('hashie', '~> 1.2.0')
+  s.add_dependency('hashie', '~> 2.0.5')
   s.add_dependency('httpclient', '~> 2.3.0.1')
   s.add_dependency('ruby-hmac', '~> 0.4.0')
 end
