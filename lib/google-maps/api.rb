@@ -21,12 +21,14 @@ module Google
 
       class << self
         def query(service, args = {})
-          args[:sensor] = false
-          args[:client] = Google::Maps.premier_client_id unless Google::Maps.premier_client_id.nil?
-          args = args.merge(Google::Maps.default_params[service]) unless Google::Maps.default_params[service].nil?
+          default_args = {sensor:  false, use_premier_signing: !Google::Maps.premier_client_id.nil?}
+          args = default_args.merge(args)
+          args = args.merge(Google::Maps.default_params[service]) if Google::Maps.default_params[service]
+          use_premier_signing = args.delete :use_premier_signing
+          args[:client] = Google::Maps.premier_client_id if use_premier_signing
 
           url = url(service, args)
-          url = premier_signing(url) unless Google::Maps.premier_client_id.nil?
+          url = premier_signing(url) if use_premier_signing
           result = Hashie::Mash.new response(url)
           raise ZeroResultsException.new("Google did not return any results: #{result.status}") if result.status == STATUS_ZERO_RESULTS
           raise InvalidResponseException.new("Google returned an error status: #{result.status}") if result.status != STATUS_OK
@@ -74,7 +76,7 @@ module Google
         def url(service, args = {})
           url = URI.parse("#{Google::Maps.end_point}#{Google::Maps.send(service)}/#{Google::Maps.format}#{query_string(args)}")
           Google::Maps.logger.debug("url before possible signing: #{url}")
-          url
+          url.to_s
         end
         
         def query_string(args = {})

@@ -26,9 +26,11 @@ RSpec.configure do |config|
   end
 end
 
-def stub_response(fixture)
+def stub_response(fixture, url = nil)
   fixture_path = File.expand_path("../fixtures/#{fixture}", __FILE__)
-  HTTPClient.any_instance.expects(:get_content).returns(File.open(fixture_path, "rb").read)
+  expectation = HTTPClient.any_instance.expects(:get_content)
+  expectation.with(url) if url
+  expectation.returns(File.open(fixture_path, "rb").read)
 end
 
 load File.expand_path('../../lib/google-maps.rb', __FILE__)

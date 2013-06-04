@@ -34,7 +34,7 @@ describe Google::Maps::API do
     end
   end
 
-  describe "premier usage" do
+  describe "premier signing" do
     before :each do 
       Google::Maps.configure do |config|
         config.premier_client_id = "clientID"
@@ -64,6 +64,39 @@ describe Google::Maps::API do
       url = URI.parse("http://maps.google.com/maps/api/geocode/json?address=New+York&sensor=false&client=clientID")
       signed_url = Google::Maps::API.send(:premier_signing, url)
       signed_url.should == "#{url}&signature=KrU1TzVQM7Ur0i8i7K3huiw3MsA="
+    end
+
+    context "per service overrides" do
+      let(:reference) { "CpQBiAAAAGs4XDizjQoVk9NjuY3ll3aLBLafpDxaFPSJSO7icOj07IRHO4KjjcRIbKEmeSVTcG75kIvwqE7VzA8D7BFvWp8OPwgAiKMveQQUsTGfJrRG5EVd7J34hY8e5JDbaXEPOMUPIWLfiugwUfQqAImvWQCGrMG1iyOpZfaW22NNhornssEg90uxrLbwLJ7QZhwGIRIQSBc_BlD7mILqQaixzTqE1BoUbNrhbmsZYkIurvK4l9exKBryfKk" }
+      let(:api_key) { "some_api_key" }
+      let(:parameters) { [:premier_client_id, :premier_key, :api_key, :default_params] }
+
+      before :each do
+        parameters.each do |what|
+          self.instance_variable_set(:"@old_#{what}", Google::Maps.send(what))
+        end
+
+        Google::Maps.configure do |config|
+          config.premier_client_id = "gme-test"
+          config.premier_key = "secret"
+          config.api_key = api_key
+          config.default_params = {place_details_service: {:use_premier_signing => false}}
+        end
+      end
+
+      after :each do
+        Google::Maps.configure do |config|
+          parameters.each do |what|
+            config.send(:"#{what}=", self.instance_variable_get(:"@old_#{what}"))
+          end
+        end
+      end
+
+      it "should not be used when configured for a certain service" do
+        stub_response("place_details.json", "https://maps.googleapis.com/maps/api/place/details/json?sensor=false&language=nl&reference=#{reference}&key=#{api_key}")
+
+        Google::Maps::place(reference, :nl).should_not be_nil
+      end
     end
   end
 
