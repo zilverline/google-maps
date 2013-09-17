@@ -11,7 +11,7 @@ module Google
       end
       
       def self.extended(base)
-        base.log_file = "/dev/null"
+        base.log_file = RUBY_PLATFORM.index(/mswin(?!ce)|mingw|cygwin|bccwin/) ? "nul" : "/dev/null"
       end
     end
   end
