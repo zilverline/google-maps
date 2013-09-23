@@ -24,14 +24,31 @@ module Google
     end
 
     class PlaceDetails
-      attr_reader :latitude, :longitude, :address, :reference
-      alias :to_s :address
+      attr_reader :data
 
       def initialize(data)
-        @latitude = data.geometry.location.lat.to_s
-        @longitude = data.geometry.location.lng.to_s
-        @reference = data.reference
-        @address = data.formatted_address
+        @data = data
+      end
+
+      def latitude
+        @data.geometry.location.lat.to_s
+      end
+
+      def longitude
+        @data.geometry.location.lng.to_s
+      end
+
+      def reference
+        @data.reference
+      end
+
+      def address
+        @data.formatted_address
+      end
+      alias :to_s :address
+
+      def address_components
+        AddressComponentsProxy.new(@data.address_components)
       end
 
       def self.find(reference, language=:en)
@@ -41,7 +58,19 @@ module Google
         PlaceDetails.new(API.query(:place_details_service, args).result)
       end
 
+      class AddressComponentsProxy
+        def initialize(address_components)
+          @address_components = address_components
+        end
+
+        def method_missing(method, *args, &block)
+          raise ArgumentError unless args.empty?
+
+          @address_components.find do |component|
+            component.types.first == method.to_s
+          end
+        end
+      end
     end
-    
   end
 end

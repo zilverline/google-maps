@@ -17,5 +17,16 @@ describe Google::Maps::PlaceDetails do
       @details.latitude.should == "-33.866975"
       @details.longitude.should =="151.195677"
     end
+
+    it "has data containing at least address components" do
+      @details.data.address_components.should_not be_empty
+    end
+
+    context "#address_components" do
+      it "allows easy access by type" do
+        @details.address_components.postal_code.long_name.should eq "2009"
+        @details.address_components.locality.long_name.should eq "Pyrmont"
+      end
+    end
   end
 end
