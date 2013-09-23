@@ -17,5 +17,9 @@ describe Google::Maps::PlaceDetails do
       @details.latitude.should == "-33.866975"
       @details.longitude.should =="151.195677"
     end
+
+    it "has data containing at least address components" do
+      @details.data.address_components.should_not be_empty
+    end
   end
 end
