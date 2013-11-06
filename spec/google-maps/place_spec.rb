@@ -3,7 +3,7 @@ require File.expand_path('../../spec_helper', __FILE__)
 describe Google::Maps::Place do
   before(:each) do
     stub_response("deventer-nl.json")
-    @places = Google::Maps::Place.find("Deventer", :nl)
+    @places = Google::Maps::Place.find("Deventer \\", :nl)
   end
 
   it "should have a description" do
@@ -19,5 +19,4 @@ describe Google::Maps::Place do
     places = Google::Maps::Place.find("Deventer", :en)
     places.first.text.should == "Deventer, The Netherlands"
   end
-
 end

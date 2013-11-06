@@ -11,11 +11,13 @@ module Google
       def initialize(data, keyword)
         @text = data.description
         @reference = data.reference
-        @html = data.description.gsub(/(#{keyword})/i, '<strong>\1</strong>')
+        matches = Array(keyword.scan(/\w+/))
+        @html = data.description.gsub(/(#{matches.first})/i, '<strong>\1</strong>')
       end
       
       def self.find(keyword, language=:en)
-        args = {:language => language, :input => keyword}
+        keyword = Regexp.escape(keyword)
+        args = {:language => language, :input =>  keyword }
         args.merge!(key: Google::Maps.api_key) unless Google::Maps.api_key.nil?
 
         API.query(:places_service, args).predictions.map{|prediction| Place.new(prediction, keyword) }
