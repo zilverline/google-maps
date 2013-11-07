@@ -11,9 +11,7 @@ module Google
       def initialize(data, keyword)
         @text = data.description
         @reference = data.reference
-        keyword = Regexp.escape(keyword)
-        matches = Array(keyword.scan(/\w+/))
-        @html = data.description.gsub(/(#{matches.first})/i, '<strong>\1</strong>')
+        @html = highligh_keywords(data, keyword)
       end
       
       def self.find(keyword, language=:en)
@@ -23,6 +21,18 @@ module Google
         API.query(:places_service, args).predictions.map{|prediction| Place.new(prediction, keyword) }
       end
 
+      private
+
+      def highligh_keywords(data, keyword)
+        keyword = Regexp.escape(keyword)
+        matches = Array(keyword.scan(/\w+/))
+        html = data.description.dup
+        matches.each do |match|
+          html.gsub!(/(#{match})/i, '<strong>\1</strong>')
+        end
+
+        html
+      end
     end
 
     class PlaceDetails

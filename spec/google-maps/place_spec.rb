@@ -2,10 +2,10 @@ require File.expand_path('../../spec_helper', __FILE__)
 
 describe Google::Maps::Place do
   describe ".find" do
+    subject { Google::Maps::Place.find(keyword, country).first }
+
     context ":nl" do
       before{ stub_response("deventer-nl.json") }
-
-      subject { Google::Maps::Place.find(keyword, country).first }
 
       let(:keyword) { "Deventer" }
       let(:country) { :nl }
@@ -25,13 +25,21 @@ describe Google::Maps::Place do
     context ":en" do
       before { stub_response("deventer-en.json") }
 
-      subject { Google::Maps::Place.find(keyword, country).first }
-
       let(:keyword) { "Deventer" }
       let(:country) { :en }
 
       its(:text) { should eq "Deventer, The Netherlands" }
       its(:html) { should eq "<strong>Deventer</strong>, The Netherlands" }
+    end
+
+    context "only highlights words" do
+      before { stub_response ("den-haag-nl.json") }
+
+      let(:keyword) { "Den . * { } Haag \\" }
+      let(:country) { :nl }
+
+      its(:text) { should eq "Den Haag, Nederland" }
+      its(:html) { should eq "<strong>Den</strong> <strong>Haag</strong>, Nederland" }
     end
   end
 end

@@ -1,0 +1,165 @@
+{
+   "predictions" : [
+      {
+         "description" : "Den Haag, Nederland",
+         "id" : "8c334f7bd9f0476cd8ec7e6bf608fbc578c21929",
+         "matched_substrings" : [
+            {
+               "length" : 8,
+               "offset" : 0
+            }
+         ],
+         "reference" : "CjQrAAAAkSxmx61CGnG4CQ4P1SBUj9GWZXsVfkNgmieaaPLYqStPT1e1qd6HO6h4yn67KeY1EhCwxm8-fj43dt40CTmGsOGsGhSo-OS-7rUIst_jgvU2WVdYdMm9Fg",
+         "terms" : [
+            {
+               "offset" : 0,
+               "value" : "Den Haag"
+            },
+            {
+               "offset" : 10,
+               "value" : "Nederland"
+            }
+         ],
+         "types" : [ "locality", "political", "geocode" ]
+      },
+      {
+         "description" : "Den Haag Centraal, Rivierenbuurt-Noord, Den Haag, Nederland",
+         "id" : "4245ebe240131abcb523708d25d08ebd35178c44",
+         "matched_substrings" : [
+            {
+               "length" : 8,
+               "offset" : 0
+            }
+         ],
+         "reference" : "ClRKAAAAf3OQkaiVGJDR-UvzuQH89ApGATVVUu0AjLJBoAbY6guUdpaOQBNbho4tSVoGVxv55oKIFP91lNSJF4n0vsSUmT32Dvk_Dxi16plK04L8fiISEHnOEP5FxGttyrnJBWiVY8IaFObwRn4LHx7-p1s6k3LcUAUtdxOe",
+         "terms" : [
+            {
+               "offset" : 0,
+               "value" : "Den Haag Centraal"
+            },
+            {
+               "offset" : 19,
+               "value" : "Rivierenbuurt-Noord"
+            },
+            {
+               "offset" : 40,
+               "value" : "Den Haag"
+            },
+            {
+               "offset" : 50,
+               "value" : "Nederland"
+            }
+         ],
+         "types" : [
+            "train_station",
+            "transit_station",
+            "train_station",
+            "establishment",
+            "geocode"
+         ]
+      },
+      {
+         "description" : "Den Haag HS, Huygenspark, Den Haag, Nederland",
+         "id" : "218e5dc5d426220c3a499279ed4f06a3618a273a",
+         "matched_substrings" : [
+            {
+               "length" : 8,
+               "offset" : 0
+            }
+         ],
+         "reference" : "CkQ8AAAAuNCq9fb2JS3Fll7-IBRVcDBUjX9sQqIFAQmH9M32xTd6cwDupew3OCyEx0Nd7MOO6N5OZVlHtinAFZcI1LEieBIQLXIO5I88KrVJ-Au8CwsxexoUDrs6sr5cyIfhuP7ykmdmQmAO7yQ",
+         "terms" : [
+            {
+               "offset" : 0,
+               "value" : "Den Haag HS"
+            },
+            {
+               "offset" : 13,
+               "value" : "Huygenspark"
+            },
+            {
+               "offset" : 26,
+               "value" : "Den Haag"
+            },
+            {
+               "offset" : 36,
+               "value" : "Nederland"
+            }
+         ],
+         "types" : [
+            "train_station",
+            "transit_station",
+            "train_station",
+            "establishment",
+            "geocode"
+         ]
+      },
+      {
+         "description" : "Den Haag Laan van NOI, Den Haag, Nederland",
+         "id" : "039ff4b6f8713c7e9e5386e426c37495c3b64a8c",
+         "matched_substrings" : [
+            {
+               "length" : 8,
+               "offset" : 0
+            }
+         ],
+         "reference" : "CkQ4AAAAKELBwwjpMi5yCEXEpQdwO4IEY1g4rwrOdR_RuWm8MJ1TYMNIYlcbzjSL5G8WIhreuE_-qdjzBAEB7_OiS2-hnBIQ1RD2I7leiPG2P0RKctpnqBoU1-5tPzOaiAuINbB2qb1oJj-v_kk",
+         "terms" : [
+            {
+               "offset" : 0,
+               "value" : "Den Haag Laan van NOI"
+            },
+            {
+               "offset" : 23,
+               "value" : "Den Haag"
+            },
+            {
+               "offset" : 33,
+               "value" : "Nederland"
+            }
+         ],
+         "types" : [
+            "train_station",
+            "transit_station",
+            "train_station",
+            "establishment",
+            "geocode"
+         ]
+      },
+      {
+         "description" : "Den Haag Centraal BV, Plaats, Centrum, Den Haag, Nederland",
+         "id" : "e4605c9b3aab6d17c5119270ea06e3edc59fda1a",
+         "matched_substrings" : [
+            {
+               "length" : 8,
+               "offset" : 0
+            }
+         ],
+         "reference" : "ClRJAAAA6s_C56BY125pwZsIKbiaat7RbuNRU8F0TdmYuyRScosXMNg_kRKjh9uTnMIA8lP5XvGbL7KJqc2PuAXBw3Mvm9ws1bcUUopejRJOIitd1M4SEGl8IwPTeX0_mEj-IwsnyCYaFEyWuAw1rIrxph74gCd8MJb6YgpM",
+         "terms" : [
+            {
+               "offset" : 0,
+               "value" : "Den Haag Centraal BV"
+            },
+            {
+               "offset" : 22,
+               "value" : "Plaats"
+            },
+            {
+               "offset" : 30,
+               "value" : "Centrum"
+            },
+            {
+               "offset" : 39,
+               "value" : "Den Haag"
+            },
+            {
+               "offset" : 49,
+               "value" : "Nederland"
+            }
+         ],
+         "types" : [ "establishment" ]
+      }
+   ],
+   "status" : "OK"
+}
