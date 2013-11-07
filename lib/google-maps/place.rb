@@ -11,16 +11,28 @@ module Google
       def initialize(data, keyword)
         @text = data.description
         @reference = data.reference
-        @html = data.description.gsub(/(#{keyword})/i, '<strong>\1</strong>')
+        @html = highligh_keywords(data, keyword)
       end
       
       def self.find(keyword, language=:en)
-        args = {:language => language, :input => keyword}
+        args = {:language => language, :input =>  keyword }
         args.merge!(key: Google::Maps.api_key) unless Google::Maps.api_key.nil?
 
         API.query(:places_service, args).predictions.map{|prediction| Place.new(prediction, keyword) }
       end
 
+      private
+
+      def highligh_keywords(data, keyword)
+        keyword = Regexp.escape(keyword)
+        matches = Array(keyword.scan(/\w+/))
+        html = data.description.dup
+        matches.each do |match|
+          html.gsub!(/(#{match})/i, '<strong>\1</strong>')
+        end
+
+        html
+      end
     end
 
     class PlaceDetails
