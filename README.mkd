@@ -30,5 +30,5 @@ Run all tests:
 
 Copyright
 ---------
-Copyright (c) 2011 Zilverline / Daniël van Hoesel.
+Copyright (c) 2011-2014 Zilverline / Daniël van Hoesel.
 See [LICENSE](https://github.com/zilverline/google-maps/blob/master/LICENSE.mkd) for details.
