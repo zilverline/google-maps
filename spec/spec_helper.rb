@@ -1,5 +1,8 @@
 require 'rspec'
+require 'rspec/its'
+require 'rspec/collection_matchers'
 require 'simplecov'
+
 SimpleCov.start do
   add_group 'GoogleMaps', 'lib/google-maps'
   add_group 'Specs', 'spec'
