@@ -93,7 +93,7 @@ describe Google::Maps::API do
       end
 
       it "should not be used when configured for a certain service" do
-        stub_response("place_details.json", "https://maps.googleapis.com/maps/api/place/details/json?sensor=false&language=nl&place_id=#{place_id}&key=#{api_key}")
+        stub_response("place_details.json", "https://maps.googleapis.com/maps/api/place/details/json?sensor=false&language=nl&placeid=#{place_id}&key=#{api_key}")
 
         Google::Maps::place(place_id, :nl).should_not be_nil
       end
