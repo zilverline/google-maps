@@ -1,3 +1,6 @@
+require 'coveralls'
+Coveralls.wear!
+
 require 'rspec'
 require 'rspec/its'
 require 'rspec/collection_matchers'
