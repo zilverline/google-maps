@@ -67,7 +67,7 @@ describe Google::Maps::API do
     end
 
     context "per service overrides" do
-      let(:reference) { "CpQBiAAAAGs4XDizjQoVk9NjuY3ll3aLBLafpDxaFPSJSO7icOj07IRHO4KjjcRIbKEmeSVTcG75kIvwqE7VzA8D7BFvWp8OPwgAiKMveQQUsTGfJrRG5EVd7J34hY8e5JDbaXEPOMUPIWLfiugwUfQqAImvWQCGrMG1iyOpZfaW22NNhornssEg90uxrLbwLJ7QZhwGIRIQSBc_BlD7mILqQaixzTqE1BoUbNrhbmsZYkIurvK4l9exKBryfKk" }
+      let(:place_id) { "CpQBiAAAAGs4XDizjQoVk9NjuY3ll3aLBLafpDxaFPSJSO7icOj07IRHO4KjjcRIbKEmeSVTcG75kIvwqE7VzA8D7BFvWp8OPwgAiKMveQQUsTGfJrRG5EVd7J34hY8e5JDbaXEPOMUPIWLfiugwUfQqAImvWQCGrMG1iyOpZfaW22NNhornssEg90uxrLbwLJ7QZhwGIRIQSBc_BlD7mILqQaixzTqE1BoUbNrhbmsZYkIurvK4l9exKBryfKk" }
       let(:api_key) { "some_api_key" }
       let(:parameters) { [:premier_client_id, :premier_key, :api_key, :default_params] }
 
@@ -93,9 +93,9 @@ describe Google::Maps::API do
       end
 
       it "should not be used when configured for a certain service" do
-        stub_response("place_details.json", "https://maps.googleapis.com/maps/api/place/details/json?sensor=false&language=nl&reference=#{reference}&key=#{api_key}")
+        stub_response("place_details.json", "https://maps.googleapis.com/maps/api/place/details/json?sensor=false&language=nl&place_id=#{place_id}&key=#{api_key}")
 
-        Google::Maps::place(reference, :nl).should_not be_nil
+        Google::Maps::place(place_id, :nl).should_not be_nil
       end
     end
   end

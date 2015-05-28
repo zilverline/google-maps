@@ -4,13 +4,13 @@ module Google
   module Maps
     
     class Place
-      attr_reader :text, :html, :keyword, :reference
+      attr_reader :text, :html, :keyword, :place_id
       alias :to_s :text
       alias :to_html :html
       
       def initialize(data, keyword)
         @text = data.description
-        @reference = data.reference
+        @place_id = data.place_id
         @html = highligh_keywords(data, keyword)
       end
       
@@ -50,8 +50,8 @@ module Google
         @data.geometry.location.lng.to_s
       end
 
-      def reference
-        @data.reference
+      def place_id
+        @data.place_id
       end
 
       def address
@@ -63,8 +63,8 @@ module Google
         AddressComponentsProxy.new(@data.address_components)
       end
 
-      def self.find(reference, language=:en)
-        args = {:language => language, :reference => reference}
+      def self.find(place_id, language=:en)
+        args = {:language => language, :place_id => place_id}
         args.merge!(key: Google::Maps.api_key) unless Google::Maps.api_key.nil?
 
         PlaceDetails.new(API.query(:place_details_service, args).result)

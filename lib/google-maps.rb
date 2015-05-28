@@ -25,8 +25,8 @@ module Google
       Place.find(keyword, language)
     end
 
-    def self.place(reference, language = self.default_language)
-      PlaceDetails.find(reference, language)
+    def self.place(place_id, language = self.default_language)
+      PlaceDetails.find(place_id, language)
     end
 
     def self.geocode(address, language = self.default_language)

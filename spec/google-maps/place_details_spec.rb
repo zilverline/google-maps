@@ -1,16 +1,16 @@
 require File.expand_path('../../spec_helper', __FILE__)
 
 describe Google::Maps::PlaceDetails do
-  let(:reference) { "CpQBiAAAAGs4XDizjQoVk9NjuY3ll3aLBLafpDxaFPSJSO7icOj07IRHO4KjjcRIbKEmeSVTcG75kIvwqE7VzA8D7BFvWp8OPwgAiKMveQQUsTGfJrRG5EVd7J34hY8e5JDbaXEPOMUPIWLfiugwUfQqAImvWQCGrMG1iyOpZfaW22NNhornssEg90uxrLbwLJ7QZhwGIRIQSBc_BlD7mILqQaixzTqE1BoUbNrhbmsZYkIurvK4l9exKBryfKk" }
+  let(:place_id) { "CpQBiAAAAGs4XDizjQoVk9NjuY3ll3aLBLafpDxaFPSJSO7icOj07IRHO4KjjcRIbKEmeSVTcG75kIvwqE7VzA8D7BFvWp8OPwgAiKMveQQUsTGfJrRG5EVd7J34hY8e5JDbaXEPOMUPIWLfiugwUfQqAImvWQCGrMG1iyOpZfaW22NNhornssEg90uxrLbwLJ7QZhwGIRIQSBc_BlD7mILqQaixzTqE1BoUbNrhbmsZYkIurvK4l9exKBryfKk" }
 
   context "given a canned response" do
     before(:each) do
       stub_response("place_details.json")
-      @details = Google::Maps::PlaceDetails.find(reference, :nl)
+      @details = Google::Maps::PlaceDetails.find(place_id, :nl)
     end
 
-    it "should have a reference" do
-      @details.reference.should == reference
+    it "should have a place_id" do
+      @details.place_id.should == place_id
     end
 
     it "should have a latlong" do
