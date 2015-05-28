@@ -1,5 +1,7 @@
 [![Build Status](https://travis-ci.org/zilverline/google-maps.svg?branch=master)](https://travis-ci.org/zilverline/google-maps)
 
+[![Coverage Status](https://coveralls.io/repos/zilverline/google-maps/badge.svg?branch=master)](https://coveralls.io/r/zilverline/google-maps?branch=master)
+
 Google Maps
 ====================
 
