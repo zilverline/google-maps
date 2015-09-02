@@ -8,19 +8,19 @@ module Google
   module Maps
     extend Configuration
     extend Logger
-    
-    def self.route(from, to, language = self.default_language)
-      Route.new(from, to, language)
+
+    def self.route(from, to, options={})
+      Route.new(from, to, options_with_defaults(options))
     end
-    
-    def self.distance(from, to, language = self.default_language)
-      Route.new(from, to, language).distance.text
+
+    def self.distance(from, to, options={})
+      Route.new(from, to, options_with_defaults(options)).distance.text
     end
-    
-    def self.duration(from, to, language = self.default_language)
-      Route.new(from, to, language).duration.text
+
+    def self.duration(from, to, options={})
+      Route.new(from, to, options_with_defaults(options)).duration.text
     end
-    
+
     def self.places(keyword, language = self.default_language)
       Place.find(keyword, language)
     end
@@ -33,6 +33,12 @@ module Google
       Location.find(address, language)
     rescue ZeroResultsException
       []
+    end
+
+    protected
+
+    def self.options_with_defaults(options)
+      {language: self.default_language}.merge(options)
     end
   end
 end
