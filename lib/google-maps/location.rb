@@ -19,11 +19,6 @@ module Google
       def self.find(address, language=:en)
         API.query(:geocode_service, :language => language, :address => address).results.map { |result| Location.new(result.formatted_address, result.geometry.location.lat, result.geometry.location.lng) }
       end
-
-
-      def self.latlng(latlng, language=:en)
-        API.query(:geocode_service, :language => language, :latlng => latlng).results.map { |result| Location.new(result.formatted_address, result.geometry.location.lat, result.geometry.location.lng) }
-      end
     end
 
   end
