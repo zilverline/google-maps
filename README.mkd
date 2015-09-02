@@ -1,3 +1,4 @@
+[![Gem Version](https://badge.fury.io/rb/google-maps.svg)](http://badge.fury.io/rb/google-maps)
 [![Build Status](https://travis-ci.org/zilverline/google-maps.svg?branch=master)](https://travis-ci.org/zilverline/google-maps)
 [![Coverage Status](https://coveralls.io/repos/zilverline/google-maps/badge.svg?branch=master)](https://coveralls.io/r/zilverline/google-maps?branch=master)
 [![Code Climate](https://codeclimate.com/repos/55671579695680044d01e0ac/badges/8f4d88f30585847e4fcf/gpa.svg)](https://codeclimate.com/repos/55671579695680044d01e0ac/feed)
