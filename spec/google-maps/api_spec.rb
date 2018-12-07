@@ -3,7 +3,7 @@ require File.expand_path('../../spec_helper', __FILE__)
 describe Google::Maps::API do
   it "should raise a custom exception when the query fails by net" do
     HTTPClient.any_instance.unstub(:get_content)
-    
+
     Google::Maps.end_point = "http://unknown.tld/"
     expect{ Google::Maps.distance("Amsterdam", "Deventer") }.to raise_error(Google::Maps::InvalidResponseException)
     Google::Maps.end_point = "http://unknown-domain-asdasdasdas123123zxcasd.com/"
@@ -14,7 +14,7 @@ describe Google::Maps::API do
 
   it "should raise a custom exception when the query fails by Google" do
     stub_response("over_query_limit.json")
-    expect{ Google::Maps.distance("Amsterdam", "Deventer") }.to raise_error(Google::Maps::InvalidResponseException)    
+    expect{ Google::Maps.distance("Amsterdam", "Deventer") }.to raise_error(Google::Maps::InvalidResponseException)
   end
 
   it "should raise a custom exception when there are no results" do
@@ -35,35 +35,35 @@ describe Google::Maps::API do
   end
 
   describe "premier signing" do
-    before :each do 
+    before :each do
       Google::Maps.configure do |config|
         config.premier_client_id = "clientID"
         config.premier_key = "vNIXE0xscrmjlyV-12Nj_BvUPaw="
       end
     end
-    
+
     it "should raise an exception when a client id is set but no key" do
       Google::Maps.premier_key = nil
       expect{ Google::Maps.distance("Amsterdam", "Deventer") }.to raise_error(Google::Maps::InvalidPremierConfigurationException)
     end
-    
+
     it "should sign the url parameters when a client id and premier key is set" do
       # http://code.google.com/apis/maps/documentation/webservices/index.html#URLSigning
 
       # Example:
       # Private Key: vNIXE0xscrmjlyV-12Nj_BvUPaw=
-      # Signature: KrU1TzVQM7Ur0i8i7K3huiw3MsA=
+      # Signature: chaRF2hTJKOScPr-RQCEhZbSzIE=
       # Client ID: clientID
-      # URL: http://maps.googleapis.com/maps/api/geocode/json?address=New+York&sensor=false&client=clientID
-      url = "http://maps.google.com/maps/api/geocode/json?address=New+York&sensor=false&client=clientID"
+      # URL: http://maps.googleapis.com/maps/api/geocode/json?address=New+York&client=clientID
+      url = "http://maps.google.com/maps/api/geocode/json?address=New+York&client=clientID"
       signed_url = Google::Maps::API.send(:premier_signing, url)
-      expect(signed_url).to eq("#{url}&signature=KrU1TzVQM7Ur0i8i7K3huiw3MsA=")
+      expect(signed_url).to eq("#{url}&signature=chaRF2hTJKOScPr-RQCEhZbSzIE=")
     end
-    
+
     it "should allow a parsed URI object to be used for signing" do
-      url = URI.parse("http://maps.google.com/maps/api/geocode/json?address=New+York&sensor=false&client=clientID")
+      url = URI.parse("http://maps.google.com/maps/api/geocode/json?address=New+York&client=clientID")
       signed_url = Google::Maps::API.send(:premier_signing, url)
-      expect(signed_url).to eq("#{url}&signature=KrU1TzVQM7Ur0i8i7K3huiw3MsA=")
+      expect(signed_url).to eq("#{url}&signature=chaRF2hTJKOScPr-RQCEhZbSzIE=")
     end
 
     context "per service overrides" do
@@ -93,7 +93,7 @@ describe Google::Maps::API do
       end
 
       it "should not be used when configured for a certain service" do
-        stub_response("place_details.json", "https://maps.googleapis.com/maps/api/place/details/json?sensor=false&language=nl&placeid=#{place_id}&key=#{api_key}")
+        stub_response("place_details.json", "https://maps.googleapis.com/maps/api/place/details/json?language=nl&placeid=#{place_id}&key=#{api_key}")
 
         expect(Google::Maps::place(place_id, :nl)).not_to be_nil
       end
