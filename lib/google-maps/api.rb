@@ -22,7 +22,7 @@ module Google
 
       class << self
         def query(service, args = {})
-          default_args = { sensor: false, use_premier_signing: !Google::Maps.premier_client_id.nil? }
+          default_args = { use_premier_signing: !Google::Maps.premier_client_id.nil? }
           args = default_args.merge(args)
           args = args.merge(Google::Maps.default_params[service]) if Google::Maps.default_params[service]
           use_premier_signing = args.delete :use_premier_signing
@@ -73,7 +73,7 @@ module Google
 
         def response(url)
           JSON.parse(HTTPClient.new.get_content(url))
-        rescue Exception => error
+        rescue StandardError => error
           Google::Maps.logger.error "#{error.message}"
           raise InvalidResponseException.new("unknown error: #{error.message}")
         end
@@ -85,7 +85,7 @@ module Google
         end
 
         def query_string(args = {})
-          '?' + args.map { |k,v| "%s=%s" % [URI.encode(k.to_s), URI.encode(v.to_s)] }.join('&') unless args.size <= 0
+          '?' + URI.encode_www_form(args) unless args.empty?
         end
       end
     end

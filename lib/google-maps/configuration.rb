@@ -14,10 +14,10 @@ module Google
       DEFAULT_GEOCODE_SERVICE = "geocode".freeze
 
       DEFAULT_FORMAT = "json".freeze
-      
+
       # premier API key to sign parameters
       DEFAULT_PREMIER_KEY = nil
-      
+
       # premier client id
       DEFAULT_PREMIER_CLIENT_ID = nil
 
@@ -29,7 +29,7 @@ module Google
 
       # params to send which each request configured per service, ie.: {places_service: {location: "52.0910,5.1220", radius: 300000}}
       DEFAULT_PARAMS = {}
-      
+
       # @private
       attr_accessor *VALID_OPTIONS_KEYS
 
