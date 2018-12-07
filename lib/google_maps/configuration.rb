@@ -12,14 +12,14 @@ module Google
       ].freeze
 
       # By default, set "https://maps.googleapis.com/maps/api/" as the server
-      DEFAULT_END_POINT = 'https://maps.googleapis.com/maps/api/'
+      DEFAULT_END_POINT = 'https://maps.googleapis.com/maps/api/'.freeze
 
-      DEFAULT_DIRECTIONS_SERVICE = 'directions'
-      DEFAULT_PLACES_SERVICE = 'place/autocomplete'
-      DEFAULT_PLACE_DETAILS_SERVICE = 'place/details'
-      DEFAULT_GEOCODE_SERVICE = 'geocode'
+      DEFAULT_DIRECTIONS_SERVICE = 'directions'.freeze
+      DEFAULT_PLACES_SERVICE = 'place/autocomplete'.freeze
+      DEFAULT_PLACE_DETAILS_SERVICE = 'place/details'.freeze
+      DEFAULT_GEOCODE_SERVICE = 'geocode'.freeze
 
-      DEFAULT_FORMAT = 'json'
+      DEFAULT_FORMAT = 'json'.freeze
 
       # premier API key to sign parameters
       DEFAULT_PREMIER_KEY = nil

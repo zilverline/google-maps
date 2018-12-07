@@ -17,8 +17,8 @@ module Google
     class ZeroResultsException < InvalidResponseException; end
 
     class API
-      STATUS_OK = 'OK'
-      STATUS_ZERO_RESULTS = 'ZERO_RESULTS'
+      STATUS_OK = 'OK'.freeze
+      STATUS_ZERO_RESULTS = 'ZERO_RESULTS'.freeze
 
       class << self
         def query(service, args = {})
