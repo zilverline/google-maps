@@ -8,35 +8,35 @@ describe Google::Maps::Route do
     end
 
     it "should be able to calculate a route" do
-      @route.distance.text.should == "104 km"
-      @route.duration.text.should == "1 uur 12 min."
-      @route.distance.value.should == 103712
-      @route.duration.value.should == 4337
+      expect(@route.distance.text).to eq("104 km")
+      expect(@route.duration.text).to eq("1 uur 12 min.")
+      expect(@route.distance.value).to eq(103712)
+      expect(@route.duration.value).to eq(4337)
     end
 
     it "should be able to present the text in Dutch" do
-      @route.options[:language].should == :nl
-      @route.end_address.should == "Deventer, Nederland"
+      expect(@route.options[:language]).to eq(:nl)
+      expect(@route.end_address).to eq("Deventer, Nederland")
     end
 
     it "should be able to return the address for the origin" do
-      @route.start_address.should == "Science Park, 1098 Amsterdam, Nederland"
+      expect(@route.start_address).to eq("Science Park, 1098 Amsterdam, Nederland")
     end
 
     it "should be able to return the address for the destination" do
-      @route.end_address.should == "Deventer, Nederland"
+      expect(@route.end_address).to eq("Deventer, Nederland")
     end
 
     it "should be able to return the latiude and longitude for the origin" do
-      @route.start_location.lat.should == 52.35445000000001
-      @route.start_location.lng.should == 4.95420
-      @route.origin_latlong.should == "52.35445000000001,4.9542"
+      expect(@route.start_location.lat).to eq(52.35445000000001)
+      expect(@route.start_location.lng).to eq(4.95420)
+      expect(@route.origin_latlong).to eq("52.35445000000001,4.9542")
     end
 
     it "should be able to return the latiude and longitude for the destination" do
-      @route.end_location.lat.should == 52.25441000000001
-      @route.end_location.lng.should == 6.160470
-      @route.destination_latlong.should == "52.25441000000001,6.16047"
+      expect(@route.end_location.lat).to eq(52.25441000000001)
+      expect(@route.end_location.lng).to eq(6.160470)
+      expect(@route.destination_latlong).to eq("52.25441000000001,6.16047")
     end
   end
 
@@ -44,8 +44,8 @@ describe Google::Maps::Route do
     it "should be able to present the text in English" do
       stub_response("amsterdam-deventer-en.json")
       route = Google::Maps::Route.new("Science Park, Amsterdam", "Deventer", :en)
-      route.options[:language].should == :en
-      route.end_address.should == "Deventer, The Netherlands"
+      expect(route.options[:language]).to eq(:en)
+      expect(route.end_address).to eq("Deventer, The Netherlands")
     end
   end
 

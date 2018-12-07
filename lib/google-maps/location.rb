@@ -18,7 +18,6 @@ module Google
 
       def self.find(address, language=:en)
         args = { language: language, address: address }
-        args[:key] = Google::Maps.api_key unless Google::Maps.api_key.nil?
 
         API.query(:geocode_service, args).results.map do |result|
           Location.new(

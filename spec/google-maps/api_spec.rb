@@ -5,21 +5,21 @@ describe Google::Maps::API do
     HTTPClient.any_instance.unstub(:get_content)
     
     Google::Maps.end_point = "http://unknown.tld/"
-    lambda{ Google::Maps.distance("Amsterdam", "Deventer") }.should raise_error(Google::Maps::InvalidResponseException)
+    expect{ Google::Maps.distance("Amsterdam", "Deventer") }.to raise_error(Google::Maps::InvalidResponseException)
     Google::Maps.end_point = "http://unknown-domain-asdasdasdas123123zxcasd.com/"
-    lambda{ Google::Maps.distance("Amsterdam", "Deventer") }.should raise_error(Google::Maps::InvalidResponseException)
+    expect{ Google::Maps.distance("Amsterdam", "Deventer") }.to raise_error(Google::Maps::InvalidResponseException)
     Google::Maps.end_point = "http://www.google.com/404"
-    lambda{ Google::Maps.distance("Amsterdam", "Deventer") }.should raise_error(Google::Maps::InvalidResponseException)
+    expect{ Google::Maps.distance("Amsterdam", "Deventer") }.to raise_error(Google::Maps::InvalidResponseException)
   end
 
   it "should raise a custom exception when the query fails by Google" do
     stub_response("over_query_limit.json")
-    lambda{ Google::Maps.distance("Amsterdam", "Deventer") }.should raise_error(Google::Maps::InvalidResponseException)    
+    expect{ Google::Maps.distance("Amsterdam", "Deventer") }.to raise_error(Google::Maps::InvalidResponseException)    
   end
 
   it "should raise a custom exception when there are no results" do
     stub_response("zero-results.json")
-    lambda{ Google::Maps.distance("Blah blah", "Jalala") }.should raise_error(Google::Maps::ZeroResultsException)
+    expect{ Google::Maps.distance("Blah blah", "Jalala") }.to raise_error(Google::Maps::ZeroResultsException)
   end
 
   it "should raise a custom exception that is rescue-able" do
@@ -29,8 +29,8 @@ describe Google::Maps::API do
     rescue => error
       @error = error
     ensure
-      @error.should_not be_nil
-      @error.should be_a_kind_of StandardError
+      expect(@error).not_to be_nil
+      expect(@error).to be_a_kind_of StandardError
     end
   end
 
@@ -44,7 +44,7 @@ describe Google::Maps::API do
     
     it "should raise an exception when a client id is set but no key" do
       Google::Maps.premier_key = nil
-      lambda{ Google::Maps.distance("Amsterdam", "Deventer") }.should raise_error(Google::Maps::InvalidPremierConfigurationException)
+      expect{ Google::Maps.distance("Amsterdam", "Deventer") }.to raise_error(Google::Maps::InvalidPremierConfigurationException)
     end
     
     it "should sign the url parameters when a client id and premier key is set" do
@@ -57,13 +57,13 @@ describe Google::Maps::API do
       # URL: http://maps.googleapis.com/maps/api/geocode/json?address=New+York&sensor=false&client=clientID
       url = "http://maps.google.com/maps/api/geocode/json?address=New+York&sensor=false&client=clientID"
       signed_url = Google::Maps::API.send(:premier_signing, url)
-      signed_url.should == "#{url}&signature=KrU1TzVQM7Ur0i8i7K3huiw3MsA="
+      expect(signed_url).to eq("#{url}&signature=KrU1TzVQM7Ur0i8i7K3huiw3MsA=")
     end
     
     it "should allow a parsed URI object to be used for signing" do
       url = URI.parse("http://maps.google.com/maps/api/geocode/json?address=New+York&sensor=false&client=clientID")
       signed_url = Google::Maps::API.send(:premier_signing, url)
-      signed_url.should == "#{url}&signature=KrU1TzVQM7Ur0i8i7K3huiw3MsA="
+      expect(signed_url).to eq("#{url}&signature=KrU1TzVQM7Ur0i8i7K3huiw3MsA=")
     end
 
     context "per service overrides" do
@@ -95,7 +95,7 @@ describe Google::Maps::API do
       it "should not be used when configured for a certain service" do
         stub_response("place_details.json", "https://maps.googleapis.com/maps/api/place/details/json?sensor=false&language=nl&placeid=#{place_id}&key=#{api_key}")
 
-        Google::Maps::place(place_id, :nl).should_not be_nil
+        expect(Google::Maps::place(place_id, :nl)).not_to be_nil
       end
     end
   end
