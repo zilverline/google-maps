@@ -19,16 +19,16 @@ Gem::Specification.new do |s|
   s.require_paths = ["lib"]
 
   s.add_development_dependency('bundler', '~> 1.0')
-  s.add_development_dependency('rake', '~> 0.9')
-  s.add_development_dependency('rspec', '~> 2.6')
-  s.add_development_dependency('rspec-its', '~> 1.0')
+  s.add_development_dependency('rake', '~> 12.3.2')
+  s.add_development_dependency('rspec', '~> 3.8.0')
+  s.add_development_dependency('rspec-its', '~> 1.2')
   s.add_development_dependency('rspec-collection_matchers', '~> 1.1')
-  s.add_development_dependency('mocha', '~> 0.10')
+  s.add_development_dependency('mocha', '~> 1.7.0')
   s.add_development_dependency('simplecov', '~> 0.5')
   s.add_development_dependency('coveralls', '~> 0.8')
   s.add_development_dependency('yard', '>= 0.9.11')
   s.add_dependency('json', '>= 1.7.5')
-  s.add_dependency('hashie', '~> 2.0.5')
+  s.add_dependency('hashie', '>= 2.0.5')
   s.add_dependency('httpclient', '>= 2.7.1')
   s.add_dependency('ruby-hmac', '~> 0.4.0')
 end
