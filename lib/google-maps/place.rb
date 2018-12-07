@@ -2,7 +2,6 @@ require File.expand_path('../api', __FILE__)
 
 module Google
   module Maps
-
     class Place
       attr_reader :text, :html, :keyword, :place_id
       alias :to_s :text
