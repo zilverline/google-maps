@@ -2,10 +2,11 @@
 require 'httpclient'
 require 'uri'
 require 'json'
-require 'hashie/mash'
 require 'base64'
 require 'hmac'
 require 'hmac-sha1'
+
+require_relative 'result'
 
 module Google
   module Maps
@@ -33,7 +34,7 @@ module Google
 
           url = url(service, args)
           url = premier_signing(url) if use_premier_signing
-          result = Hashie::Mash.new response(url)
+          result = Google::Maps::Result.new response(url)
           raise ZeroResultsException, "Google did not return any results: #{result.status}" if result.status == STATUS_ZERO_RESULTS
           raise InvalidResponseException, "Google returned an error status: #{result.status}" if result.status != STATUS_OK
           result
