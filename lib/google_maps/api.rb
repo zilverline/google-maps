@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # require 'net/http'
 require 'httpclient'
 require 'uri'
@@ -10,15 +12,13 @@ require_relative 'result'
 
 module Google
   module Maps
-
     class InvalidResponseException < StandardError; end
     class InvalidPremierConfigurationException < StandardError; end
     class ZeroResultsException < InvalidResponseException; end
 
     class API
-
-      STATUS_OK = "OK".freeze
-      STATUS_ZERO_RESULTS = "ZERO_RESULTS".freeze
+      STATUS_OK = 'OK'
+      STATUS_ZERO_RESULTS = 'ZERO_RESULTS'
 
       class << self
         def query(service, args = {})
@@ -34,25 +34,24 @@ module Google
 
           url = url(service, args)
           url = premier_signing(url) if use_premier_signing
-          result = Google::Maps::Result.new response(url)
-          raise ZeroResultsException, "Google did not return any results: #{result.status}" if result.status == STATUS_ZERO_RESULTS
-          raise InvalidResponseException, "Google returned an error status: #{result.status}" if result.status != STATUS_OK
-          result
+          response(url)
         end
 
         private
 
         def decode_url_safe_base_64(value)
-          Base64.decode64(value.tr('-_','+/'))
+          Base64.decode64(value.tr('-_', '+/'))
         end
 
         def encode_url_safe_base_64(value)
-          Base64.encode64(value).tr('+/','-_')
+          Base64.encode64(value).tr('+/', '-_')
         end
 
         def premier_signing(url)
-          raise InvalidPremierConfigurationException.new("No private key set, set Google::Maps.premier_key") if Google::Maps.premier_key.nil?
-
+          if Google::Maps.premier_key.nil?
+            raise InvalidPremierConfigurationException,
+                  'No private key set, set Google::Maps.premier_key'
+          end
           parsed_url = url.is_a?(URI) ? url : URI.parse(url)
           url_to_sign = parsed_url.path + '?' + parsed_url.query
 
@@ -65,17 +64,26 @@ module Google
           raw_sig = sha1.digest
 
           # encode the signature into base64 for url use form.
-          signature =  encode_url_safe_base_64(raw_sig)
+          signature = encode_url_safe_base_64(raw_sig)
 
           # prepend the server and append the signature.
           "#{parsed_url.scheme}://#{parsed_url.host}#{url_to_sign}&signature=#{signature}".strip
         end
 
         def response(url)
-          JSON.parse(HTTPClient.new.get_content(url))
-        rescue StandardError => error
-          Google::Maps.logger.error "#{error.message}"
-          raise InvalidResponseException.new("unknown error: #{error.message}")
+          begin
+            result = Google::Maps::Result.new JSON.parse(HTTPClient.new.get_content(url))
+          rescue StandardError => error
+            Google::Maps.logger.error error.message.to_s
+            raise InvalidResponseException, "unknown error: #{error.message}"
+          end
+          handle_result_status(result.status)
+          result
+        end
+
+        def handle_result_status(status)
+          raise ZeroResultsException, "Google did not return any results: #{status}" if status == STATUS_ZERO_RESULTS
+          raise InvalidResponseException, "Google returned an error status: #{status}" if status != STATUS_OK
         end
 
         def url(service, args = {})
@@ -89,6 +97,5 @@ module Google
         end
       end
     end
-
   end
 end

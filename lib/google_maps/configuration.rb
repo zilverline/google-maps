@@ -1,19 +1,25 @@
+# frozen_string_literal: true
+
 module Google
   module Maps
     # Defines constants and methods related to configuration
     module Configuration
       # An array of valid keys in the options hash when configuring an {Google::Maps::API}
-      VALID_OPTIONS_KEYS = [:end_point, :premier_key, :premier_client_id, :format, :directions_service, :places_service, :geocode_service, :api_key, :default_language, :place_details_service, :default_params].freeze
+      VALID_OPTIONS_KEYS = %i[
+        end_point premier_key premier_client_id format
+        directions_service places_service geocode_service
+        api_key default_language place_details_service default_params
+      ].freeze
 
       # By default, set "https://maps.googleapis.com/maps/api/" as the server
-      DEFAULT_END_POINT = "https://maps.googleapis.com/maps/api/".freeze
+      DEFAULT_END_POINT = 'https://maps.googleapis.com/maps/api/'
 
-      DEFAULT_DIRECTIONS_SERVICE = "directions".freeze
-      DEFAULT_PLACES_SERVICE = "place/autocomplete".freeze
-      DEFAULT_PLACE_DETAILS_SERVICE = "place/details".freeze
-      DEFAULT_GEOCODE_SERVICE = "geocode".freeze
+      DEFAULT_DIRECTIONS_SERVICE = 'directions'
+      DEFAULT_PLACES_SERVICE = 'place/autocomplete'
+      DEFAULT_PLACE_DETAILS_SERVICE = 'place/details'
+      DEFAULT_GEOCODE_SERVICE = 'geocode'
 
-      DEFAULT_FORMAT = "json".freeze
+      DEFAULT_FORMAT = 'json'
 
       # premier API key to sign parameters
       DEFAULT_PREMIER_KEY = nil
@@ -27,11 +33,12 @@ module Google
       # default language
       DEFAULT_LANGUAGE = :en
 
-      # params to send which each request configured per service, ie.: {places_service: {location: "52.0910,5.1220", radius: 300000}}
-      DEFAULT_PARAMS = {}
+      # params to send which each request configured per service
+      # ie.: {places_service: {location: "52.0910,5.1220", radius: 300000}}
+      DEFAULT_PARAMS = {}.freeze
 
       # @private
-      attr_accessor *VALID_OPTIONS_KEYS
+      attr_accessor(*VALID_OPTIONS_KEYS)
 
       # When this module is extended, set all configuration options to their default values
       def self.extended(base)
