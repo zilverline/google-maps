@@ -10,6 +10,6 @@ describe Google::Maps::Logger do
     Logger.any_instance.expects(:error).at_least_once
 
     # trigger the exception
-    lambda{ Google::Maps.distance("Amsterdam", "Deventer") }.should raise_error
+    expect{ Google::Maps.distance("Amsterdam", "Deventer") }.to raise_error
   end
 end

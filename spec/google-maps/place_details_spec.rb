@@ -10,22 +10,22 @@ describe Google::Maps::PlaceDetails do
     end
 
     it "should have a place_id" do
-      @details.place_id.should == place_id
+      expect(@details.place_id).to eq(place_id)
     end
 
     it "should have a latlong" do
-      @details.latitude.should == "-33.866975"
-      @details.longitude.should =="151.195677"
+      expect(@details.latitude).to eq("-33.866975")
+      expect(@details.longitude).to eq("151.195677")
     end
 
     it "has data containing at least address components" do
-      @details.data.address_components.should_not be_empty
+      expect(@details.data.address_components).not_to be_empty
     end
 
     context "#address_components" do
       it "allows easy access by type" do
-        @details.address_components.postal_code.long_name.should eq "2009"
-        @details.address_components.locality.long_name.should eq "Pyrmont"
+        expect(@details.address_components.postal_code.long_name).to eq "2009"
+        expect(@details.address_components.locality.long_name).to eq "Pyrmont"
       end
     end
   end
