@@ -22,8 +22,6 @@ module Google
 
       class << self
         def query(service, args = {})
-          default_args = { use_premier_signing: !Google::Maps.premier_client_id.nil? }
-          args = default_args.merge(args)
           args = args.merge(Google::Maps.default_params[service]) if Google::Maps.default_params[service]
           use_premier_signing = args.delete :use_premier_signing
           if use_premier_signing
