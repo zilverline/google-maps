@@ -39,6 +39,15 @@ Google::Maps.configure do |config|
 end
 ```
 
+### Default language
+
+Set the default language.
+
+```ruby
+Google::Maps.configure do |config|
+  config.default_language = :nl #dutch
+end
+```
 
 Usage Examples
 --------------
