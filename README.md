@@ -108,7 +108,26 @@ Usage Examples
  #=> "Amsterdam, Nederland"
  places.first.place_id
  #=> "ChIJVXealLU_xkcRja_At0z9AGY"
+ 
+ place = Google::Maps.place("ChIJVXealLU_xkcRja_At0z9AGY")
+ 
+ place.latitude
+ #=> "52.3679843"
+ 
+ place.longitude
+ #=> "4.9035614"
+ 
+ place.address
+ #=> "Amsterdam, Nederland"
+```
 
+### Geocode
+
+```ruby
+  geocodes = Google::Maps.geocode("Science Park, Amsterdam")
+  geocodes.first.address = "Science Park, 1012 WX Amsterdam, Nederland"
+  geocodes.first.latitude = 52.3545543
+  geocodes.first.longitude = 4.9540916
 ```
 
 Testing
