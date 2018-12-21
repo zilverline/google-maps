@@ -5,6 +5,7 @@ require 'google_maps/version'
 
 Gem::Specification.new do |s|
   s.name        = 'google-maps'
+  s.license     = 'MIT'
   s.version     = Google::Maps::VERSION
   s.authors     = ['Daniel van Hoesel']
   s.email       = ['daniel@danielvanhoesel.nl']
@@ -28,9 +29,9 @@ Gem::Specification.new do |s|
   s.add_development_dependency('rspec-its', '~> 1.2')
   s.add_development_dependency('rubocop', '~> 0.61.1')
   s.add_development_dependency('simplecov', '~> 0.5')
-  s.add_development_dependency('yard', '>= 0.9.11')
-  s.add_dependency('hashie', '>= 2.0.5')
-  s.add_dependency('httpclient', '>= 2.7.1')
-  s.add_dependency('json', '>= 1.7.5')
+  s.add_development_dependency('yard', '~> 0.9', '>= 0.9.11')
+  s.add_dependency('hashie', '~> 2.0', '>= 2.0.5')
+  s.add_dependency('httpclient', '~> 2.7', '>= 2.7.1')
+  s.add_dependency('json', '~> 1.7', '>= 1.7.5')
   s.add_dependency('ruby-hmac', '~> 0.4.0')
 end
