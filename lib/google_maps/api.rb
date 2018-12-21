@@ -23,15 +23,7 @@ module Google
       class << self
         def query(service, args = {})
           args = args.merge(Google::Maps.default_params[service]) if Google::Maps.default_params[service]
-          use_premier_signing = args.delete :use_premier_signing
-          if use_premier_signing
-            args[:client] = Google::Maps.premier_client_id
-          else
-            args[:key] = Google::Maps.api_key
-          end
-
           url = url(service, args)
-          url = premier_signing(url) if use_premier_signing
           response(url)
         end
 
@@ -45,16 +37,12 @@ module Google
           Base64.encode64(value).tr('+/', '-_')
         end
 
-        def premier_signing(url)
-          if Google::Maps.premier_key.nil?
-            raise InvalidPremierConfigurationException,
-                  'No private key set, set Google::Maps.premier_key'
-          end
+        def add_digital_signature(url)
           parsed_url = url.is_a?(URI) ? url : URI.parse(url)
           url_to_sign = parsed_url.path + '?' + parsed_url.query
 
           # Decode the private key
-          raw_key = decode_url_safe_base_64(Google::Maps.premier_key)
+          raw_key = decode_url_safe_base_64(Google::Maps.client_secret)
 
           # create a signature using the private key and the URL
           sha1 = HMAC::SHA1.new(raw_key)
@@ -84,7 +72,24 @@ module Google
           raise InvalidResponseException, "Google returned an error status: #{status}" if status != STATUS_OK
         end
 
+        def url_with_api_key(service, args = {})
+          base_url(service, args.merge(api_key: Google::Maps.api_key))
+        end
+
+        def url_with_digital_signature(service, args = {})
+          url = base_url(service, args.merge(client: Google::Maps.client_id))
+          add_digital_signature(url)
+        end
+
         def url(service, args = {})
+          if (Google::Maps.authentication_mode == Google::Maps::Configuration::API_KEY)
+            url_with_api_key(service, args)
+          elsif (Google::Maps.authentication_mode == Google::Maps::Configuration::DIGITAL_SIGNATURE)
+            url_with_digital_signature(service, args)
+          end
+        end
+
+        def base_url(service, args = {})
           url = URI.parse("#{Google::Maps.end_point}#{Google::Maps.send(service)}/#{Google::Maps.format}#{query_string(args)}")
           Google::Maps.logger.debug("url before possible signing: #{url}")
           url.to_s
