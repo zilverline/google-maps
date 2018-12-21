@@ -43,12 +43,22 @@ end
 Usage Examples
 --------------
 
+### Distance
+
 ```ruby
   Google::Maps.distance("Science Park, Amsterdam", "Deventer")
-  #=> "104 km"
+  #=> "105 km"
+```
+
+### Duration
+```ruby
   Google::Maps.duration("Science Park, Amsterdam", "Deventer")
   #=> "1 hour 12 mins"
-  
+ ```
+ 
+ ### Route
+ 
+ ```ruby
   route = Google::Maps.route("Science Park, Amsterdam", "Deventer")
   route.distance.text
   #=> "104 km"
@@ -58,6 +68,47 @@ Usage Examples
   #=> 103712
   route.duration.value
   #=> 4337
+  route.steps
+  #=> [
+    {
+             "distance" => {
+       "text" => "0,1 km",
+      "value" => 125
+    },
+             "duration" => {
+       "text" => "1 min.",
+      "value" => 35
+    },
+         "end_location" => {
+      "lat" => 52.3556768,
+      "lng" => 4.9545739
+    },
+    "html_instructions" => "Rijd <b>naar het noordwesten</b>, richting het <b>Science Park</b>",
+             "polyline" => {
+      "points" => "oqp~Hqpf]?@?@?@KNOVEHA@A?s@wAQ]Q_@We@?A?ADI"
+    },
+       "start_location" => {
+      "lat" => 52.3549602,
+      "lng" => 4.9538473
+    },
+          "travel_mode" => "DRIVING"
+  },
+  {
+             "distance" => {
+       "text" => "37 m",
+       ........
+
+```
+
+### Places
+
+```ruby
+ places = Google::Maps.places('Amsterdam')
+ places.first.text
+ #=> "Amsterdam, Nederland"
+ places.first.place_id
+ #=> "ChIJVXealLU_xkcRja_At0z9AGY"
+
 ```
 
 Testing
