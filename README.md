@@ -71,5 +71,5 @@ Run all tests:
 Copyright
 ---------
 Copyright (c) 2011-2019 Zilverline.
-See [LICENSE](https://github.com/zilverline/google-maps/blob/master/LICENSE.mkd) for details.
+See [LICENSE](https://github.com/zilverline/google-maps/blob/master/LICENSE.md) for details.
 
