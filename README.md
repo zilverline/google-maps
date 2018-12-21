@@ -24,7 +24,7 @@ API key:
 
 ```ruby
 Google::Maps.configure do |config|
-  config.authentication_mode = Google::Maps::Authentication::API_KEY #default
+  config.authentication_mode = Google::Maps::Authentication::API_KEY
   config.api_key = 'xxxxxxxxxxx' 
 end
 ```
