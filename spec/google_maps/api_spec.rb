@@ -49,7 +49,7 @@ describe Google::Maps::API do
       it 'should sign the url parameters when a client id and premier key is set' do
         stub_response(
           'place_details.json',
-          "https://maps.googleapis.com/maps/api/geocode/json?address=New+York&client=clientID&signature=chaRF2hTJKOScPr-RQCEhZbSzIE="
+          'https://maps.googleapis.com/maps/api/geocode/json?address=New+York&client=clientID&signature=chaRF2hTJKOScPr-RQCEhZbSzIE='
         )
         # http://code.google.com/apis/maps/documentation/webservices/index.html#URLSigning
 
@@ -58,7 +58,7 @@ describe Google::Maps::API do
         # Signature: chaRF2hTJKOScPr-RQCEhZbSzIE=
         # Client ID: clientID
         # URL: http://maps.googleapis.com/maps/api/geocode/json?address=New+York&client=clientID
-        Google::Maps::API.query(:geocode_service, { address: 'New York' })
+        Google::Maps::API.query(:geocode_service, address: 'New York')
       end
     end
 
@@ -73,9 +73,9 @@ describe Google::Maps::API do
       it 'should sign the url parameters when a client id and premier key is set' do
         stub_response(
           'place_details.json',
-          "https://maps.googleapis.com/maps/api/geocode/json?address=New+York&api_key=api_key123"
+          'https://maps.googleapis.com/maps/api/geocode/json?address=New+York&api_key=api_key123'
         )
-        Google::Maps::API.query(:geocode_service, { address: 'New York' })
+        Google::Maps::API.query(:geocode_service, address: 'New York')
       end
     end
   end

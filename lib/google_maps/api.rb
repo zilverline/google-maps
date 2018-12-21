@@ -82,9 +82,9 @@ module Google
         end
 
         def url(service, args = {})
-          if (Google::Maps.authentication_mode == Google::Maps::Configuration::API_KEY)
+          if Google::Maps.authentication_mode == Google::Maps::Configuration::API_KEY
             url_with_api_key(service, args)
-          elsif (Google::Maps.authentication_mode == Google::Maps::Configuration::DIGITAL_SIGNATURE)
+          elsif Google::Maps.authentication_mode == Google::Maps::Configuration::DIGITAL_SIGNATURE
             url_with_digital_signature(service, args)
           end
         end

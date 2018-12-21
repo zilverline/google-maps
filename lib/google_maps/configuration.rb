@@ -49,6 +49,7 @@ module Google
       def validate_config
         return validate_api_key if authentication_mode == API_KEY
         return validate_digital_signature if authentication_mode == DIGITAL_SIGNATURE
+
         raise Google::Maps::InvalidConfigurationError, 'No valid authentication mode provided'
       end
 

@@ -109,11 +109,11 @@ describe Google::Maps do
       end
 
       it 'fails when no api key is provided' do
-        expect {
+        expect do
           Google::Maps.configure do |config|
             config.authentication_mode = Google::Maps::Configuration::API_KEY
           end
-        }.to raise_error(Google::Maps::InvalidConfigurationError)
+        end.to raise_error(Google::Maps::InvalidConfigurationError)
       end
     end
 
@@ -131,32 +131,32 @@ describe Google::Maps do
       end
 
       it 'fails when no client id is provided' do
-        expect {
+        expect do
           Google::Maps.configure do |config|
             config.authentication_mode = Google::Maps::Configuration::DIGITAL_SIGNATURE
             config.client_secret = 'xxxxxxxxxxx'
           end
-        }.to raise_error(Google::Maps::InvalidConfigurationError)
+        end.to raise_error(Google::Maps::InvalidConfigurationError)
       end
 
       it 'fails when no client secret is provided' do
-        expect {
+        expect do
           Google::Maps.configure do |config|
             config.authentication_mode = Google::Maps::Configuration::DIGITAL_SIGNATURE
             config.client_id = 'xxxxxxxxxxx'
           end
-        }.to raise_error(Google::Maps::InvalidConfigurationError)
+        end.to raise_error(Google::Maps::InvalidConfigurationError)
       end
     end
 
     context 'with invalid authentication mode' do
       it 'raises an invalid configuration exception' do
-        expect {
+        expect do
           Google::Maps.configure do |config|
             config.authentication_mode = 'hack'
             config.client_secret = 'xxxxxxxxxxx'
           end
-        }.to raise_error(Google::Maps::InvalidConfigurationError)
+        end.to raise_error(Google::Maps::InvalidConfigurationError)
       end
     end
 
