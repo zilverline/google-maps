@@ -8,7 +8,7 @@ Gem::Specification.new do |s|
   s.license     = 'MIT'
   s.version     = Google::Maps::VERSION
   s.authors     = ['Daniel van Hoesel']
-  s.email       = ['daniel@danielvanhoesel.nl']
+  s.email       = ['info@zilverline.com']
   s.homepage    = 'http://zilverline.com/'
   s.summary     = 'Ruby wrapper for the Google Maps API'
   s.description = 'This is a ruby wrapper for the Google Maps api'
