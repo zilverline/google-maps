@@ -2,14 +2,18 @@
 
 module Google
   module Maps
+    class InvalidConfigurationError < StandardError; end
     # Defines constants and methods related to configuration
     module Configuration
       # An array of valid keys in the options hash when configuring an {Google::Maps::API}
       VALID_OPTIONS_KEYS = %i[
-        end_point premier_key premier_client_id format
+        end_point authentication_mode client_id client_secret format
         directions_service places_service geocode_service
         api_key default_language place_details_service default_params
       ].freeze
+
+      API_KEY = 'api_key'.freeze
+      DIGITAL_SIGNATURE = 'digital_signature'.freeze
 
       # By default, set "https://maps.googleapis.com/maps/api/" as the server
       DEFAULT_END_POINT = 'https://maps.googleapis.com/maps/api/'.freeze
@@ -20,15 +24,6 @@ module Google
       DEFAULT_GEOCODE_SERVICE = 'geocode'.freeze
 
       DEFAULT_FORMAT = 'json'.freeze
-
-      # premier API key to sign parameters
-      DEFAULT_PREMIER_KEY = nil
-
-      # premier client id
-      DEFAULT_PREMIER_CLIENT_ID = nil
-
-      # a api key
-      DEFAULT_API_KEY = nil
 
       # default language
       DEFAULT_LANGUAGE = :en
@@ -48,6 +43,23 @@ module Google
       # Convenience method to allow configuration options to be set in a block
       def configure
         yield self
+        validate_config
+      end
+
+      def validate_config
+        return validate_api_key if authentication_mode == API_KEY
+        return validate_digital_signature if authentication_mode == DIGITAL_SIGNATURE
+
+        raise Google::Maps::InvalidConfigurationError, 'No valid authentication mode provided'
+      end
+
+      def validate_api_key
+        raise Google::Maps::InvalidConfigurationError, 'No API key provided' unless api_key.present?
+      end
+
+      def validate_digital_signature
+        raise Google::Maps::InvalidConfigurationError, 'No client id provided' unless client_id.present?
+        raise Google::Maps::InvalidConfigurationError, 'No client secret provided' unless client_secret.present?
       end
 
       # Create a hash of options and their values
@@ -65,11 +77,12 @@ module Google
         self.places_service = DEFAULT_PLACES_SERVICE
         self.place_details_service = DEFAULT_PLACE_DETAILS_SERVICE
         self.geocode_service = DEFAULT_GEOCODE_SERVICE
-        self.premier_client_id = DEFAULT_PREMIER_CLIENT_ID
-        self.premier_key = DEFAULT_PREMIER_KEY
-        self.api_key = DEFAULT_API_KEY
         self.default_language = DEFAULT_LANGUAGE
         self.default_params = DEFAULT_PARAMS
+        self.authentication_mode = nil
+        self.api_key = nil
+        self.client_id = nil
+        self.client_secret = nil
         self
       end
     end

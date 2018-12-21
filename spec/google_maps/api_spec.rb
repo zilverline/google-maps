@@ -36,77 +36,46 @@ describe Google::Maps::API do
     end
   end
 
-  describe 'premier signing' do
-    before :each do
-      Google::Maps.configure do |config|
-        config.premier_client_id = 'clientID'
-        config.premier_key = 'vNIXE0xscrmjlyV-12Nj_BvUPaw='
-      end
-    end
-
-    it 'should raise an exception when a client id is set but no key' do
-      Google::Maps.premier_key = nil
-      expect { Google::Maps.distance('Amsterdam', 'Deventer') }.to raise_error(Google::Maps::InvalidPremierConfigurationException)
-    end
-
-    it 'should sign the url parameters when a client id and premier key is set' do
-      # http://code.google.com/apis/maps/documentation/webservices/index.html#URLSigning
-
-      # Example:
-      # Private Key: vNIXE0xscrmjlyV-12Nj_BvUPaw=
-      # Signature: chaRF2hTJKOScPr-RQCEhZbSzIE=
-      # Client ID: clientID
-      # URL: http://maps.googleapis.com/maps/api/geocode/json?address=New+York&client=clientID
-      url = 'http://maps.google.com/maps/api/geocode/json?address=New+York&client=clientID'
-      signed_url = Google::Maps::API.send(:premier_signing, url)
-      expect(signed_url).to eq("#{url}&signature=chaRF2hTJKOScPr-RQCEhZbSzIE=")
-    end
-
-    it 'should allow a parsed URI object to be used for signing' do
-      url = URI.parse('http://maps.google.com/maps/api/geocode/json?address=New+York&client=clientID')
-      signed_url = Google::Maps::API.send(:premier_signing, url)
-      expect(signed_url).to eq("#{url}&signature=chaRF2hTJKOScPr-RQCEhZbSzIE=")
-    end
-
-    context 'per service overrides' do
-      let(:place_id) do
-        'CpQBiAAAAGs4XDizjQoVk9NjuY3ll3aLBLafpDxaFPSJSO7icOj07IRH' \
-        'O4KjjcRIbKEmeSVTcG75kIvwqE7VzA8D7BFvWp8OPwgAiKMveQQUsTGf' \
-        'JrRG5EVd7J34hY8e5JDbaXEPOMUPIWLfiugwUfQqAImvWQCGrMG1iyOp' \
-        'ZfaW22NNhornssEg90uxrLbwLJ7QZhwGIRIQSBc_BlD7mILqQaixzTqE' \
-        '1BoUbNrhbmsZYkIurvK4l9exKBryfKk'
-      end
-      let(:api_key) { 'some_api_key' }
-      let(:parameters) { %i[premier_client_id premier_key api_key default_params] }
-
-      before :each do
-        parameters.each do |what|
-          instance_variable_set(:"@old_#{what}", Google::Maps.send(what))
-        end
-
+  describe 'authentication' do
+    context 'with digital signature' do
+      before do
         Google::Maps.configure do |config|
-          config.premier_client_id = 'gme-test'
-          config.premier_key = 'secret'
-          config.api_key = api_key
-          config.default_params = { place_details_service: { use_premier_signing: false } }
+          config.authentication_mode = Google::Maps::Configuration::DIGITAL_SIGNATURE
+          config.client_id = 'clientID'
+          config.client_secret = 'vNIXE0xscrmjlyV-12Nj_BvUPaw='
         end
       end
 
-      after :each do
-        Google::Maps.configure do |config|
-          parameters.each do |what|
-            config.send(:"#{what}=", instance_variable_get(:"@old_#{what}"))
-          end
-        end
-      end
-
-      it 'should not be used when configured for a certain service' do
+      it 'should sign the url parameters when a client id and premier key is set' do
         stub_response(
           'place_details.json',
-          "https://maps.googleapis.com/maps/api/place/details/json?language=nl&placeid=#{place_id}&key=#{api_key}"
+          'https://maps.googleapis.com/maps/api/geocode/json?address=New+York&client=clientID&signature=chaRF2hTJKOScPr-RQCEhZbSzIE='
         )
+        # http://code.google.com/apis/maps/documentation/webservices/index.html#URLSigning
 
-        expect(Google::Maps.place(place_id, :nl)).not_to be_nil
+        # Example:
+        # Private Key: vNIXE0xscrmjlyV-12Nj_BvUPaw=
+        # Signature: chaRF2hTJKOScPr-RQCEhZbSzIE=
+        # Client ID: clientID
+        # URL: http://maps.googleapis.com/maps/api/geocode/json?address=New+York&client=clientID
+        Google::Maps::API.query(:geocode_service, address: 'New York')
+      end
+    end
+
+    context 'with api key' do
+      before do
+        Google::Maps.configure do |config|
+          config.authentication_mode = Google::Maps::Configuration::API_KEY
+          config.api_key = 'api_key123'
+        end
+      end
+
+      it 'should sign the url parameters when a client id and premier key is set' do
+        stub_response(
+          'place_details.json',
+          'https://maps.googleapis.com/maps/api/geocode/json?address=New+York&api_key=api_key123'
+        )
+        Google::Maps::API.query(:geocode_service, address: 'New York')
       end
     end
   end
