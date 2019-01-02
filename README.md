@@ -21,7 +21,7 @@ API key:
 
 ```ruby
 Google::Maps.configure do |config|
-  config.authentication_mode = Google::Maps::Authentication::API_KEY
+  config.authentication_mode = Google::Maps::Configuration::API_KEY
   config.api_key = 'xxxxxxxxxxx'
 end
 ```
@@ -30,7 +30,7 @@ Digital signature:
 
 ```ruby
 Google::Maps.configure do |config|
-  config.authentication_mode = Google::Maps::Authentication::DIGITAL_SIGNATURE
+  config.authentication_mode = Google::Maps::Configuration::DIGITAL_SIGNATURE
   config.client_id = 'xxxxxxxxxxx'
   config.client_secret = 'xxxxxxxxxxx'
 end
