@@ -73,7 +73,7 @@ module Google
         end
 
         def url_with_api_key(service, args = {})
-          base_url(service, args.merge(api_key: Google::Maps.api_key))
+          base_url(service, args.merge(key: Google::Maps.api_key))
         end
 
         def url_with_digital_signature(service, args = {})

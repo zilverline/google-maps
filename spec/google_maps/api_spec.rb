@@ -73,7 +73,7 @@ describe Google::Maps::API do
       it 'should sign the url parameters when a client id and premier key is set' do
         stub_response(
           'place_details.json',
-          'https://maps.googleapis.com/maps/api/geocode/json?address=New+York&api_key=api_key123'
+          'https://maps.googleapis.com/maps/api/geocode/json?address=New+York&key=api_key123'
         )
         Google::Maps::API.query(:geocode_service, address: 'New York')
       end
