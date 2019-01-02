@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-$LOAD_PATH.push File.expand_path('lib', __dir__)
+$:.push File.expand_path('../lib', __FILE__)
 require 'google_maps/version'
 
 Gem::Specification.new do |s|

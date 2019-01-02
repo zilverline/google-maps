@@ -16,5 +16,9 @@ Metrics/MethodLength:
 Metrics/AbcSize:
   Max: 20
 
+Naming/FileName:
+  Exclude:
+    - "lib/google-maps.rb"
+
 Style/Documentation:
   Enabled: false

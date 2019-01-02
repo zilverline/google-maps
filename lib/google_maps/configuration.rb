@@ -54,12 +54,12 @@ module Google
       end
 
       def validate_api_key
-        raise Google::Maps::InvalidConfigurationError, 'No API key provided' unless api_key.present?
+        raise Google::Maps::InvalidConfigurationError, 'No API key provided' unless api_key
       end
 
       def validate_digital_signature
-        raise Google::Maps::InvalidConfigurationError, 'No client id provided' unless client_id.present?
-        raise Google::Maps::InvalidConfigurationError, 'No client secret provided' unless client_secret.present?
+        raise Google::Maps::InvalidConfigurationError, 'No client id provided' unless client_id
+        raise Google::Maps::InvalidConfigurationError, 'No client secret provided' unless client_secret
       end
 
       # Create a hash of options and their values

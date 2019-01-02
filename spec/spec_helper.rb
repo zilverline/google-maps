@@ -38,4 +38,4 @@ def stub_response(fixture, url = nil)
   expectation.returns(File.open(fixture_path, 'rb').read)
 end
 
-load File.expand_path('../lib/google_maps.rb', __dir__)
+load File.expand_path('../lib/google-maps.rb', __dir__)
