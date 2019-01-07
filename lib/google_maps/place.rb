@@ -1,12 +1,13 @@
-require File.expand_path('../api', __FILE__)
+# frozen_string_literal: true
+
+require File.expand_path('api', __dir__)
 
 module Google
   module Maps
-
     class Place
       attr_reader :text, :html, :keyword, :place_id
-      alias :to_s :text
-      alias :to_html :html
+      alias to_s text
+      alias to_html html
 
       def initialize(data, keyword)
         @text = data.description
@@ -14,9 +15,9 @@ module Google
         @html = highligh_keywords(data, keyword)
       end
 
-      def self.find(keyword, language=:en)
-        args = {:language => language, :input =>  keyword }
-        API.query(:places_service, args).predictions.map{|prediction| Place.new(prediction, keyword) }
+      def self.find(keyword, language = :en)
+        args = { language: language, input: keyword }
+        API.query(:places_service, args).predictions.map { |prediction| Place.new(prediction, keyword) }
       end
 
       private
@@ -55,14 +56,14 @@ module Google
       def address
         @data.formatted_address
       end
-      alias :to_s :address
+      alias to_s address
 
       def address_components
         AddressComponentsProxy.new(@data.address_components)
       end
 
-      def self.find(place_id, language=:en)
-        args = {:language => language, :placeid => place_id}
+      def self.find(place_id, language = :en)
+        args = { language: language, placeid: place_id }
         PlaceDetails.new(API.query(:place_details_service, args).result)
       end
 
@@ -71,12 +72,18 @@ module Google
           @address_components = address_components
         end
 
-        def method_missing(method, *args, &block)
+        def method_missing(method_name, *args)
           raise ArgumentError unless args.empty?
 
           @address_components.find do |component|
-            component.types.first == method.to_s
-          end
+            component.types.first == method_name.to_s
+          end || super
+        end
+
+        def respond_to_missing?(method_name, include_private = false)
+          @address_components.any? do |component|
+            component.types.first == method_name.to_s
+          end || super
         end
       end
     end

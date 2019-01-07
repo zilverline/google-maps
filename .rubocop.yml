@@ -1,0 +1,24 @@
+AllCops:
+  Exclude:
+    - ./google-maps.gemspec
+
+Metrics/BlockLength:
+  Exclude:
+    - "spec/**/*.rb"
+  Max: 80
+
+Metrics/LineLength:
+  Max: 130
+
+Metrics/MethodLength:
+  Max: 15
+
+Metrics/AbcSize:
+  Max: 20
+
+Naming/FileName:
+  Exclude:
+    - "lib/google-maps.rb"
+
+Style/Documentation:
+  Enabled: false

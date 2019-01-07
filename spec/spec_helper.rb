@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'coveralls'
 Coveralls.wear!
 
@@ -7,7 +9,7 @@ require 'rspec/collection_matchers'
 require 'simplecov'
 
 SimpleCov.start do
-  add_group 'GoogleMaps', 'lib/google-maps'
+  add_group 'GoogleMaps', 'lib/google_maps'
   add_group 'Specs', 'spec'
   add_filter __FILE__
 end
@@ -33,7 +35,7 @@ def stub_response(fixture, url = nil)
   fixture_path = File.expand_path("../fixtures/#{fixture}", __FILE__)
   expectation = HTTPClient.any_instance.expects(:get_content)
   expectation.with(url) if url
-  expectation.returns(File.open(fixture_path, "rb").read)
+  expectation.returns(File.open(fixture_path, 'rb').read)
 end
 
-load File.expand_path('../../lib/google-maps.rb', __FILE__)
+load File.expand_path('../lib/google-maps.rb', __dir__)
