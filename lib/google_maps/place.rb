@@ -53,6 +53,22 @@ module Google
         @data.place_id
       end
 
+      def photos
+        @data.photos
+      end
+
+      def url
+        @data.url
+      end
+
+      def name
+        @data.name
+      end
+
+      def website
+        @data.website
+      end
+
       def address
         @data.formatted_address
       end
