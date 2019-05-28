@@ -68,7 +68,7 @@ describe Google::Maps do
       expect(components['postal_code']).to eq(['1098 XH'])
       expect(components['route']).to eq(['Science Park Amsterdam'])
       expect(components['street_number']).to eq(['400'])
-      expect(components['sublocality']).to eq(['Middenmeer', 'Watergraafsmeer'])
+      expect(components['sublocality']).to eq(%w[Middenmeer Watergraafsmeer])
     end
 
     it 'should handle multiple location for an address' do
