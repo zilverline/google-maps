@@ -36,12 +36,8 @@ module Google
         address_components.each_with_object({}) do |v, acc|
           types = v['types']
           types.each do |t|
-            value = v['long_name']
-            if acc[t]
-              acc[t] << value
-            else
-              acc[t] = [value]
-            end
+            acc[t] ||= []
+            acc[t] << v['long_name']
           end
         end
       end
