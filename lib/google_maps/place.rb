@@ -93,13 +93,13 @@ module Google
 
           @address_components.find do |component|
             component.types.first == method_name.to_s
-          end || super
+          end
         end
 
-        def respond_to_missing?(method_name, include_private = false)
+        def respond_to_missing?(method_name, _include_private = false)
           @address_components.any? do |component|
             component.types.first == method_name.to_s
-          end || super
+          end
         end
       end
     end
