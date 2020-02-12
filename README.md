@@ -66,6 +66,15 @@ end
   #=> "1 hour 12 mins"
 ```
 
+## Distance matrix
+
+```ruby
+Google::Maps.distance_matrix("Science Park, Amsterdam", "Deventer").distance
+#=> 104478
+Google::Maps.distance_matrix("Science Park, Amsterdam", "Deventer").duration
+#=> 4374
+```
+
 ### Route
 
 ```ruby
