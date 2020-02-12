@@ -1,0 +1,22 @@
+{
+  "destination_addresses" : [ "Amsterdam" ],
+  "origin_addresses" : [ "Utrecht" ],
+  "rows" : [
+    {
+      "elements" : [
+        {
+          "distance" : {
+            "text" : "53,7 km",
+            "value" : 53744
+          },
+          "duration" : {
+            "text" : "54 min.",
+            "value" : 3237
+          },
+          "status" : "OK"
+        }
+      ]
+    }
+  ],
+  "status" : "OK"
+}
