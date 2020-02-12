@@ -2,6 +2,6 @@
 
 module Google
   module Maps
-    VERSION = '3.0.5'.freeze
+    VERSION = '3.0.5'
   end
 end

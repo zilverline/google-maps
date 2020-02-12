@@ -7,7 +7,7 @@ Metrics/BlockLength:
     - "spec/**/*.rb"
   Max: 80
 
-Metrics/LineLength:
+Layout/LineLength:
   Max: 130
 
 Metrics/MethodLength:
@@ -21,4 +21,7 @@ Naming/FileName:
     - "lib/google-maps.rb"
 
 Style/Documentation:
+  Enabled: false
+
+Style/MethodMissingSuper:
   Enabled: false
