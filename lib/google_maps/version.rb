@@ -2,6 +2,6 @@
 
 module Google
   module Maps
-    VERSION = '3.0.5'
+    VERSION = '3.0.6'
   end
 end
