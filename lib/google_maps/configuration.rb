@@ -8,22 +8,23 @@ module Google
       # An array of valid keys in the options hash when configuring an {Google::Maps::API}
       VALID_OPTIONS_KEYS = %i[
         end_point authentication_mode client_id client_secret format
-        directions_service places_service geocode_service
+        directions_service places_service geocode_service distance_matrix_service
         api_key default_language place_details_service default_params
       ].freeze
 
-      API_KEY = 'api_key'.freeze
-      DIGITAL_SIGNATURE = 'digital_signature'.freeze
+      API_KEY = 'api_key'
+      DIGITAL_SIGNATURE = 'digital_signature'
 
       # By default, set "https://maps.googleapis.com/maps/api/" as the server
-      DEFAULT_END_POINT = 'https://maps.googleapis.com/maps/api/'.freeze
+      DEFAULT_END_POINT = 'https://maps.googleapis.com/maps/api/'
 
-      DEFAULT_DIRECTIONS_SERVICE = 'directions'.freeze
-      DEFAULT_PLACES_SERVICE = 'place/autocomplete'.freeze
-      DEFAULT_PLACE_DETAILS_SERVICE = 'place/details'.freeze
-      DEFAULT_GEOCODE_SERVICE = 'geocode'.freeze
+      DEFAULT_DIRECTIONS_SERVICE = 'directions'
+      DEFAULT_PLACES_SERVICE = 'place/autocomplete'
+      DEFAULT_PLACE_DETAILS_SERVICE = 'place/details'
+      DEFAULT_GEOCODE_SERVICE = 'geocode'
+      DEFAULT_DISTANCE_MATRIX_SERVICE = 'distancematrix'
 
-      DEFAULT_FORMAT = 'json'.freeze
+      DEFAULT_FORMAT = 'json'
 
       # default language
       DEFAULT_LANGUAGE = :en
@@ -77,6 +78,7 @@ module Google
         self.places_service = DEFAULT_PLACES_SERVICE
         self.place_details_service = DEFAULT_PLACE_DETAILS_SERVICE
         self.geocode_service = DEFAULT_GEOCODE_SERVICE
+        self.distance_matrix_service = DEFAULT_DISTANCE_MATRIX_SERVICE
         self.default_language = DEFAULT_LANGUAGE
         self.default_params = DEFAULT_PARAMS
         self.authentication_mode = nil
