@@ -1,0 +1,14 @@
+{
+  "destination_addresses" : [ "Amsterdam" ],
+  "origin_addresses" : [ "Utrecht" ],
+  "rows" : [
+    {
+      "elements" : [
+        {
+          "status" : "ZERO_RESULTS"
+        }
+      ]
+    }
+  ],
+  "status" : "OK"
+}
