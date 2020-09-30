@@ -12,5 +12,16 @@ describe Google::Maps::DistanceMatrix do
       its(:distance) { should eq 53_744 }
       its(:duration) { should eq 3237 }
     end
+
+    context ':nl and zero results' do
+      before { stub_response('distance-matrix-zero-results.json') }
+
+      it 'raises Google::Maps::ZeroResultsException' do
+
+        expect { subject.distance }.to raise_error(Google::Maps::ZeroResultsException)
+        expect { subject.duration }.to raise_error(Google::Maps::ZeroResultsException)
+
+      end
+    end
   end
 end

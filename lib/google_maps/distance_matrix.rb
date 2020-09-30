@@ -27,7 +27,7 @@ module Google
       def element
         element = distance_matrix.rows.first.elements.first
 
-        raise Google::Maps::ZeroResultsException if element.status == 'NOT_FOUND'
+        raise Google::Maps::ZeroResultsException if (element.status == 'NOT_FOUND' || element.status == 'ZERO_RESULTS')
 
         element
       end
