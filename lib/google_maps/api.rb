@@ -17,8 +17,8 @@ module Google
     class ZeroResultsException < InvalidResponseException; end
 
     class API
-      STATUS_OK = 'OK'.freeze
-      STATUS_ZERO_RESULTS = 'ZERO_RESULTS'.freeze
+      STATUS_OK = 'OK'
+      STATUS_ZERO_RESULTS = 'ZERO_RESULTS'
 
       class << self
         def query(service, args = {})
@@ -59,9 +59,9 @@ module Google
         def response(url)
           begin
             result = Google::Maps::Result.new JSON.parse(HTTPClient.new.get_content(url))
-          rescue StandardError => error
-            Google::Maps.logger.error error.message.to_s
-            raise InvalidResponseException, "unknown error: #{error.message}"
+          rescue StandardError => e
+            Google::Maps.logger.error e.message.to_s
+            raise InvalidResponseException, "unknown error: #{e.message}"
           end
           handle_result_status(result.status)
           result

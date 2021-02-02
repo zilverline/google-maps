@@ -53,6 +53,22 @@ module Google
         @data.place_id
       end
 
+      def photos
+        @data.photos
+      end
+
+      def url
+        @data.url
+      end
+
+      def name
+        @data.name
+      end
+
+      def website
+        @data.website
+      end
+
       def address
         @data.formatted_address
       end
@@ -77,13 +93,13 @@ module Google
 
           @address_components.find do |component|
             component.types.first == method_name.to_s
-          end || nil
+          end
         end
 
-        def respond_to_missing?(method_name, include_private = false)
+        def respond_to_missing?(method_name, _include_private = false)
           @address_components.any? do |component|
             component.types.first == method_name.to_s
-          end || nil
+          end
         end
       end
     end

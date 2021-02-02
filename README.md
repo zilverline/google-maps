@@ -66,6 +66,15 @@ end
   #=> "1 hour 12 mins"
 ```
 
+## Distance matrix
+
+```ruby
+Google::Maps.distance_matrix("Science Park, Amsterdam", "Deventer").distance
+#=> 104478
+Google::Maps.distance_matrix("Science Park, Amsterdam", "Deventer").duration
+#=> 4374
+```
+
 ### Route
 
 ```ruby
@@ -183,6 +192,9 @@ AVOID = [
 
  place = Google::Maps.place("ChIJVXealLU_xkcRja_At0z9AGY")
 
+ place.place_id
+ #=> "ChIJVXealLU_xkcRja_At0z9AGY"
+
  place.latitude
  #=> "52.3679843"
 
@@ -191,6 +203,18 @@ AVOID = [
 
  place.address
  #=> "Amsterdam, Nederland"
+
+ place.name
+ #=> "Amsterdam"
+
+ place.photos
+ #<Google::Maps::Result height, html_attribution[], photo_reference, width>
+
+ place.website
+ #=> "http://www.amsterdam.nl/"
+
+ place.url
+ #=> "https://maps.google.com/?q=Amsterdam,+Netherlands"
 ```
 
 ### Geocode

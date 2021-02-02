@@ -28,8 +28,8 @@ describe Google::Maps::API do
     stub_response('zero-results.json')
     begin
       Google::Maps.distance('Blah blah', 'Jalala')
-    rescue StandardError => error
-      @error = error
+    rescue StandardError => e
+      @error = e
     ensure
       expect(@error).not_to be_nil
       expect(@error).to be_a_kind_of StandardError

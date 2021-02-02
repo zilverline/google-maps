@@ -5,6 +5,7 @@ require File.expand_path('google_maps/logger', __dir__)
 require File.expand_path('google_maps/route', __dir__)
 require File.expand_path('google_maps/place', __dir__)
 require File.expand_path('google_maps/location', __dir__)
+require File.expand_path('google_maps/distance_matrix', __dir__)
 
 module Google
   module Maps
@@ -29,6 +30,10 @@ module Google
 
     def self.place(place_id, language = default_language)
       PlaceDetails.find(place_id, language)
+    end
+
+    def self.distance_matrix(from, to, options = {})
+      DistanceMatrix.new(from, to, options_with_defaults(options))
     end
 
     def self.geocode(address, language = default_language)

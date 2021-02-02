@@ -52,6 +52,25 @@ describe Google::Maps do
       expect(location.lat_lng).to eq([52.3564490, 4.95568890])
     end
 
+    it 'should extract all components for an address' do
+      stub_response('geocoder/science-park-400-amsterdam-en.json')
+
+      location = Google::Maps.geocode('Science Park 400, Amsterdam').first
+      components = location.components
+      expect(components['administrative_area_level_1']).to eq(['Noord-Holland'])
+      expect(components['administrative_area_level_2']).to eq(['Government of Amsterdam'])
+      expect(components['country']).to eq(['The Netherlands'])
+      expect(components['establishment']).to eq(['University of Amsterdam'])
+      expect(components['locality']).to eq(['Amsterdam'])
+      expect(components['political']).to eq(
+        ['Middenmeer', 'Watergraafsmeer', 'Amsterdam', 'Government of Amsterdam', 'Noord-Holland', 'The Netherlands']
+      )
+      expect(components['postal_code']).to eq(['1098 XH'])
+      expect(components['route']).to eq(['Science Park Amsterdam'])
+      expect(components['street_number']).to eq(['400'])
+      expect(components['sublocality']).to eq(%w[Middenmeer Watergraafsmeer])
+    end
+
     it 'should handle multiple location for an address' do
       stub_response('geocoder/amsterdam-en.json')
 
