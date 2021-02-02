@@ -5,13 +5,17 @@ require File.expand_path('api', __dir__)
 module Google
   module Maps
     class Place
-      attr_reader :text, :html, :keyword, :place_id
+      attr_reader :text, :html, :structured_text, :keyword, :place_id
       alias to_s text
       alias to_html html
 
       def initialize(data, keyword)
         @text = data.description
         @place_id = data.place_id
+        @structured_text = {
+          main: data.structured_formatting&.main_text,
+          secondary: data.structured_formatting&.secondary_text
+        }
         @html = highligh_keywords(data, keyword)
       end
 

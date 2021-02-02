@@ -21,6 +21,7 @@ describe Google::Maps::Place do
 
         its(:text) { should eq 'Deventer, Nederland' }
         its(:html) { should eq '<strong>Deventer</strong>, Nederland' }
+        its(:structured_text) { should eq(main: 'Deventer', secondary: 'Nederland') }
       end
     end
 
@@ -30,8 +31,9 @@ describe Google::Maps::Place do
       let(:keyword) { 'Deventer' }
       let(:country) { :en }
 
-      its(:text) { should eq 'Deventer, The Netherlands' }
-      its(:html) { should eq '<strong>Deventer</strong>, The Netherlands' }
+      its(:text) { should eq 'Deventer, Netherlands' }
+      its(:html) { should eq '<strong>Deventer</strong>, Netherlands' }
+      its(:structured_text) { should eq(main: 'Deventer', secondary: 'Netherlands') }
     end
 
     context 'only highlights words' do
@@ -42,6 +44,7 @@ describe Google::Maps::Place do
 
       its(:text) { should eq 'Den Haag, Nederland' }
       its(:html) { should eq '<strong>Den</strong> <strong>Haag</strong>, Nederland' }
+      its(:structured_text) { should eq(main: 'Den Haag', secondary: 'Nederland') }
     end
   end
 end
