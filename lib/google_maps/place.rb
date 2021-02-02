@@ -16,7 +16,7 @@ module Google
           main: data.structured_formatting&.main_text,
           secondary: data.structured_formatting&.secondary_text
         }
-        @html = highligh_keywords(data, keyword)
+        @html = highlight_keywords(data, keyword)
       end
 
       def self.find(keyword, language = :en)
@@ -26,7 +26,7 @@ module Google
 
       private
 
-      def highligh_keywords(data, keyword)
+      def highlight_keywords(data, keyword)
         keyword = Regexp.escape(keyword)
         matches = Array(keyword.scan(/\w+/))
         html = data.description.dup
