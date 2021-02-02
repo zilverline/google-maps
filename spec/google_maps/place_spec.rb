@@ -23,6 +23,17 @@ describe Google::Maps::Place do
         its(:html) { should eq '<strong>Deventer</strong>, Nederland' }
         its(:structured_text) { should eq(main: 'Deventer', secondary: 'Nederland') }
       end
+
+      context 'without structured formatting' do
+        before { stub_response('deventer-nl-without-structured.json') }
+
+        let(:keyword) { 'Deventer' }
+        let(:country) { :nl }
+
+        its(:text) { should eq 'Deventer, Nederland' }
+        its(:html) { should eq '<strong>Deventer</strong>, Nederland' }
+        its(:structured_text) { should eq(main: nil, secondary: nil) }
+      end
     end
 
     context ':en' do
