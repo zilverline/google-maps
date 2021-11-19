@@ -30,6 +30,6 @@ Gem::Specification.new do |s|
   s.add_development_dependency('yard', '~> 0.9', '>= 0.9.11')
   s.add_dependency('hashie', '~> 4.1', '>= 4.1.0')
   s.add_dependency('httpclient', '~> 2.7', '>= 2.7.1')
-  s.add_dependency('json', '>= 1.7.5')
+  s.add_dependency('multi_json', '>= 1.15')
   s.add_dependency('ruby-hmac', '~> 0.4.0')
 end
