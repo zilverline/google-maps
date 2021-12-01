@@ -63,13 +63,13 @@ module Google
             Google::Maps.logger.error e.message.to_s
             raise InvalidResponseException, "unknown error: #{e.message}"
           end
-          handle_result_status(result.status)
+          handle_result_status(result.status, result.error_message)
           result
         end
 
-        def handle_result_status(status)
-          raise ZeroResultsException, "Google did not return any results: #{status}" if status == STATUS_ZERO_RESULTS
-          raise InvalidResponseException, "Google returned an error status: #{status}" if status != STATUS_OK
+        def handle_result_status(status, error_message)
+          raise ZeroResultsException, "#{status}: #{error_message}" if status == STATUS_ZERO_RESULTS
+          raise InvalidResponseException, "#{status}: #{error_message}" if status != STATUS_OK
         end
 
         def url_with_api_key(service, args = {})
