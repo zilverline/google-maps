@@ -221,9 +221,9 @@ AVOID = [
 
 ```ruby
   geocodes = Google::Maps.geocode("Science Park, Amsterdam")
-  geocodes.first.address = "Science Park, 1012 WX Amsterdam, Nederland"
-  geocodes.first.latitude = 52.3545543
-  geocodes.first.longitude = 4.9540916
+  geocodes.first.address # => "Science Park, 1012 WX Amsterdam, Nederland"
+  geocodes.first.latitude # => 52.3545543
+  geocodes.first.longitude # => 4.9540916
 ```
 
 ## Testing
