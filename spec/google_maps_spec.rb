@@ -57,13 +57,13 @@ describe Google::Maps do
 
       location = Google::Maps.geocode('Science Park 400, Amsterdam').first
       components = location.components
-      expect(components['administrative_area_level_1']).to eq(['Noord-Holland'])
+      expect(components['administrative_area_level_1']).to eq(['Noord-Holland', 'NH'])
       expect(components['administrative_area_level_2']).to eq(['Government of Amsterdam'])
-      expect(components['country']).to eq(['The Netherlands'])
+      expect(components['country']).to eq(['The Netherlands', 'NL'])
       expect(components['establishment']).to eq(['University of Amsterdam'])
       expect(components['locality']).to eq(['Amsterdam'])
       expect(components['political']).to eq(
-        ['Middenmeer', 'Watergraafsmeer', 'Amsterdam', 'Government of Amsterdam', 'Noord-Holland', 'The Netherlands']
+        ['Middenmeer', 'Watergraafsmeer', 'Amsterdam', 'Government of Amsterdam', 'Noord-Holland', 'NH', 'The Netherlands', 'NL'],
       )
       expect(components['postal_code']).to eq(['1098 XH'])
       expect(components['route']).to eq(['Science Park Amsterdam'])
