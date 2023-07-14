@@ -38,6 +38,7 @@ module Google
           types.each do |t|
             acc[t] ||= []
             acc[t] << v['long_name']
+            acc[t] << v['short_name'] if v['short_name'] != v['long_name']
           end
         end
       end
